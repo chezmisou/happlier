@@ -1,108 +1,44 @@
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { Check } from 'lucide-react';
-
-const plans = [
-  {
-    name: 'Gratuit',
-    price: '0€',
-    period: '',
-    description: 'Pour découvrir Happlier',
-    features: [
-      '3 jours d\'essai par app',
-      'Jusqu\'à 2 applications',
-      'Personnalisation des couleurs',
-      'URL en happlier.com/votre-app',
-      'Support par email',
-    ],
-    cta: 'Commencer gratuitement',
-    href: '/signup',
-    highlighted: false,
-  },
-  {
-    name: 'Pro',
-    price: '5€',
-    period: '/mois/app',
-    description: 'Pour garder vos apps en ligne',
-    features: [
-      'Tout du plan gratuit',
-      'Applications illimitées',
-      'Pas d\'expiration',
-      'Notifications SMS',
-      'Support prioritaire',
-      'Nom de domaine personnalisé (bientôt)',
-    ],
-    cta: 'Commencer l\'essai gratuit',
-    href: '/signup',
-    highlighted: true,
-  },
-];
 
 export default function TarifsPage() {
   return (
-    <section className="py-20 lg:py-28 bg-white">
-      <div className="max-w-4xl mx-auto px-6">
-        <div className="text-center mb-16">
-          <p className="text-sm font-medium tracking-wider uppercase text-violet-600 mb-3">
-            Tarifs
-          </p>
-          <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-            Tarifs simples et transparents
-          </h1>
-          <p className="text-gray-500 max-w-xl mx-auto">
-            Commencez gratuitement, payez uniquement pour garder vos apps en ligne
-          </p>
+    <section style={{ background: '#ffffff', padding: 'clamp(80px, 8vw, 120px) 24px' }}>
+      <div style={{ maxWidth: '880px', margin: '0 auto' }}>
+        <div style={{ textAlign: 'center', marginBottom: '64px' }}>
+          <span style={{ fontSize: '13px', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#7c3aed' }}>Tarifs</span>
+          <h1 style={{ fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 700, color: '#111827', marginTop: '12px' }}>Tarifs simples et transparents</h1>
+          <p style={{ fontSize: '16px', color: '#6b7280', marginTop: '12px', maxWidth: '480px', marginLeft: 'auto', marginRight: 'auto' }}>Commencez gratuitement, payez uniquement pour garder vos apps en ligne</p>
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-          {plans.map((plan) => (
-            <div
-              key={plan.name}
-              className="rounded-2xl p-8"
-              style={
-                plan.highlighted
-                  ? { border: '2px solid #7c3aed', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)' }
-                  : { border: '1px solid #e5e7eb' }
-              }
-            >
-              {plan.highlighted && (
-                <span className="inline-block text-xs font-semibold text-violet-600 bg-violet-50 px-3 py-1 rounded-full mb-4">
-                  Recommandé
-                </span>
-              )}
-              <h2 className="text-xl font-bold text-gray-900 mb-1">{plan.name}</h2>
-              <p className="text-sm text-gray-500 mb-4">{plan.description}</p>
-
-              <div className="mb-6">
-                <span className="text-4xl font-bold text-gray-900">{plan.price}</span>
-                {plan.period && (
-                  <span className="text-gray-500 text-sm">{plan.period}</span>
-                )}
-              </div>
-
-              <ul className="space-y-3 mb-8">
-                {plan.features.map((feature) => (
-                  <li key={feature} className="flex items-center gap-2 text-sm text-gray-700">
-                    <Check className="w-4 h-4 text-violet-600 flex-shrink-0" />
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-
-              <Button
-                className="w-full py-3 rounded-xl"
-                style={
-                  plan.highlighted
-                    ? { background: '#7c3aed', color: '#ffffff' }
-                    : undefined
-                }
-                variant={plan.highlighted ? 'default' : 'outline'}
-                asChild
-              >
-                <Link href={plan.href}>{plan.cta}</Link>
-              </Button>
-            </div>
-          ))}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px', maxWidth: '700px', margin: '0 auto' }}>
+          <div style={{ borderRadius: '16px', padding: '36px', border: '1px solid #e5e7eb', background: '#fff' }}>
+            <h2 style={{ fontSize: '22px', fontWeight: 700, color: '#111827', marginBottom: '4px' }}>Gratuit</h2>
+            <p style={{ fontSize: '14px', color: '#6b7280', marginBottom: '24px' }}>Pour découvrir Happlier</p>
+            <div style={{ marginBottom: '28px' }}><span style={{ fontSize: '42px', fontWeight: 800, color: '#111827' }}>0€</span></div>
+            <ul style={{ listStyle: 'none', padding: 0, marginBottom: '32px' }}>
+              {["3 jours d'essai par app", "Jusqu'à 2 applications", 'Personnalisation des couleurs', 'URL en happlier.com/votre-app', 'Support par email'].map((f) => (
+                <li key={f} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '14px', color: '#374151', padding: '8px 0' }}>
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="#7c3aed" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  {f}
+                </li>
+              ))}
+            </ul>
+            <Link href="/auth/signup" style={{ display: 'block', textAlign: 'center', padding: '14px', borderRadius: '12px', fontSize: '15px', fontWeight: 600, textDecoration: 'none', border: '1px solid #e5e7eb', color: '#374151', background: '#fff' }}>Commencer gratuitement</Link>
+          </div>
+          <div style={{ borderRadius: '16px', padding: '36px', border: '2px solid #7c3aed', background: '#fff', position: 'relative', boxShadow: '0 10px 25px -5px rgba(124,58,237,0.15)' }}>
+            <span style={{ position: 'absolute', top: '-12px', left: '50%', transform: 'translateX(-50%)', background: '#7c3aed', color: '#fff', fontSize: '12px', fontWeight: 600, padding: '4px 16px', borderRadius: '100px' }}>Recommandé</span>
+            <h2 style={{ fontSize: '22px', fontWeight: 700, color: '#111827', marginBottom: '4px' }}>Pro</h2>
+            <p style={{ fontSize: '14px', color: '#6b7280', marginBottom: '24px' }}>Pour garder vos apps en ligne</p>
+            <div style={{ marginBottom: '28px' }}><span style={{ fontSize: '42px', fontWeight: 800, color: '#111827' }}>5€</span><span style={{ fontSize: '15px', color: '#6b7280' }}>/mois/app</span></div>
+            <ul style={{ listStyle: 'none', padding: 0, marginBottom: '32px' }}>
+              {['Tout du plan gratuit', 'Applications illimitées', "Pas d'expiration", 'Notifications SMS', 'Support prioritaire', 'Domaine personnalisé (bientôt)'].map((f) => (
+                <li key={f} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '14px', color: '#374151', padding: '8px 0' }}>
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="#7c3aed" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  {f}
+                </li>
+              ))}
+            </ul>
+            <Link href="/auth/signup" style={{ display: 'block', textAlign: 'center', padding: '14px', borderRadius: '12px', fontSize: '15px', fontWeight: 600, textDecoration: 'none', background: '#7c3aed', color: '#fff' }}>Commencer l&apos;essai gratuit</Link>
+          </div>
         </div>
       </div>
     </section>
