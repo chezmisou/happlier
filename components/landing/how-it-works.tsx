@@ -30,7 +30,7 @@ export function HowItWorks() {
           <p className="text-[#7c6df0] text-xs tracking-[0.2em] font-medium uppercase mb-3">
             COMMENT CA MARCHE
           </p>
-          <h2 className="text-2xl lg:text-3xl font-bold">
+          <h2 className="text-2xl lg:text-4xl font-bold text-gray-900 text-center mb-4">
             Trois étapes, c&apos;est tout
           </h2>
         </div>
@@ -46,8 +46,8 @@ export function HowItWorks() {
               >
                 {step.number}
               </div>
-              <h3 className="text-lg font-semibold mb-2">{step.title}</h3>
-              <p className="text-sm text-gray-500">{step.description}</p>
+              <h3 className="text-lg font-semibold text-gray-900 mt-4 mb-2">{step.title}</h3>
+              <p className="text-sm text-gray-600">{step.description}</p>
             </div>
           ))}
         </div>

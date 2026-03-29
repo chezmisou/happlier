@@ -47,7 +47,7 @@ export function Examples() {
           <p className="text-[#7c6df0] text-xs tracking-[0.2em] font-medium uppercase mb-3">
             EXEMPLES
           </p>
-          <h2 className="text-2xl lg:text-3xl font-bold mb-2">
+          <h2 className="text-2xl lg:text-4xl font-bold text-gray-900 text-center mb-4">
             Découvrez ce qu&apos;on peut créer
           </h2>
           <p className="text-gray-500">
