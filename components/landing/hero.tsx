@@ -2,10 +2,10 @@ import Link from 'next/link';
 
 export function HeroSection() {
   return (
-    <section className="bg-[#0f1117] py-20 lg:py-32">
+    <section className="bg-[#0f1117] pt-24 lg:pt-32 pb-20 lg:pb-32">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         {/* Label */}
-        <p className="text-[#7c6df0] text-xs tracking-[0.2em] font-medium uppercase mb-6">
+        <p className="text-xs tracking-widest text-purple-400 mb-6 text-center uppercase">
           PROPULSE PAR L&apos;IA CLAUDE
         </p>
 
@@ -24,14 +24,14 @@ export function HeroSection() {
         <div className="flex gap-3 justify-center flex-wrap mb-4">
           <Link
             href="/signup"
-            className="bg-[#7c6df0] text-white px-7 py-3 rounded-lg font-medium text-sm hover:bg-[#6b5ce0] transition-colors"
+            className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-4 rounded-lg text-lg font-medium transition"
           >
             Créer mon app gratuitement
           </Link>
           <form action="/api/demo" method="POST">
             <button
               type="submit"
-              className="bg-transparent border border-white/20 text-white px-7 py-3 rounded-lg font-medium text-sm hover:bg-white/5 transition-colors"
+              className="border border-white/30 text-white px-8 py-4 rounded-lg text-lg font-medium hover:bg-white/10 transition"
             >
               Essayer la démo
             </button>
