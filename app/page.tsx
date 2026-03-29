@@ -23,7 +23,7 @@ export default function HomePage() {
             <span className="text-lg sm:text-xl font-extrabold gradient-text">
               Happlier
             </span>
-            <div className="hidden sm:flex items-center gap-6">
+            <div className="hidden lg:flex items-center gap-6">
               <a
                 href="#how-it-works"
                 className="text-sm text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors font-medium"
@@ -54,7 +54,7 @@ export default function HomePage() {
                 <Button size="sm">Commencer</Button>
               </Link>
               <button
-                className="sm:hidden p-1.5 text-[var(--muted-foreground)]"
+                className="lg:hidden p-1.5 text-[var(--muted-foreground)]"
                 onClick={() => setMenuOpen(!menuOpen)}
                 aria-label="Menu"
               >
@@ -66,7 +66,7 @@ export default function HomePage() {
 
         {/* Mobile menu */}
         {menuOpen && (
-          <div className="sm:hidden border-t border-[var(--border)] bg-[var(--card)]">
+          <div className="lg:hidden border-t border-[var(--border)] bg-[var(--card)]">
             <div className="px-4 py-3 space-y-2">
               <a
                 href="#how-it-works"

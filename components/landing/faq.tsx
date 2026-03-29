@@ -45,16 +45,16 @@ export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section id="faq" className="py-16 sm:py-24 px-4">
+    <section id="faq" className="py-16 lg:py-24 px-4">
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-10 sm:mb-16">
           <span className="inline-block text-xs sm:text-sm font-semibold text-[var(--primary)] mb-2 sm:mb-3 tracking-wide uppercase">
             FAQ
           </span>
-          <h2 className="text-2xl sm:text-3xl lg:text-5xl font-extrabold tracking-tight mb-3 sm:mb-4">
+          <h2 className="text-2xl lg:text-3xl font-extrabold tracking-tight mb-3 sm:mb-4">
             Questions fréquentes
           </h2>
-          <p className="text-[var(--muted-foreground)] text-sm sm:text-lg">
+          <p className="text-[var(--muted-foreground)] text-sm sm:text-base lg:text-lg">
             Tout ce que vous devez savoir sur Happlier
           </p>
         </div>

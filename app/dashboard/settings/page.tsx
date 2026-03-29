@@ -71,10 +71,10 @@ export default function SettingsPage() {
   return (
     <div className="max-w-2xl animate-fade-in">
       <div className="mb-6 sm:mb-8">
-        <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight">
           Paramètres du compte
         </h1>
-        <p className="text-[var(--muted-foreground)] mt-1 text-xs sm:text-sm">
+        <p className="text-[var(--muted-foreground)] mt-1 text-xs sm:text-sm lg:text-base">
           Gérez vos informations personnelles et votre abonnement
         </p>
       </div>
