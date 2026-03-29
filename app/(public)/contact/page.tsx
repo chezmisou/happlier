@@ -1,78 +1,40 @@
 'use client';
-
 import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Check } from 'lucide-react';
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitted(true);
-  };
-
   return (
-    <section className="py-20 lg:py-28 bg-white">
-      <div className="max-w-xl mx-auto px-6">
-        <div className="text-center mb-16">
-          <p className="text-sm font-medium tracking-wider uppercase text-violet-600 mb-3">
-            Contact
-          </p>
-          <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-            Contactez-nous
-          </h1>
-          <p className="text-gray-500">
-            Une question ? Un probl&egrave;me ? &Eacute;crivez-nous.
-          </p>
+    <section style={{ background: '#ffffff', padding: 'clamp(80px, 8vw, 120px) 24px' }}>
+      <div style={{ maxWidth: '540px', margin: '0 auto' }}>
+        <div style={{ textAlign: 'center', marginBottom: '48px' }}>
+          <span style={{ fontSize: '13px', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#7c3aed' }}>Contact</span>
+          <h1 style={{ fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 700, color: '#111827', marginTop: '12px' }}>Contactez-nous</h1>
+          <p style={{ fontSize: '16px', color: '#6b7280', marginTop: '12px' }}>Une question ? Un problème ? Écrivez-nous.</p>
         </div>
-
         {submitted ? (
-          <div className="text-center py-12">
-            <div className="w-16 h-16 mx-auto mb-4 bg-emerald-100 rounded-full flex items-center justify-center">
-              <Check className="w-8 h-8 text-emerald-600" />
+          <div style={{ textAlign: 'center', padding: '48px 0' }}>
+            <div style={{ width: '64px', height: '64px', margin: '0 auto 16px', background: '#d1fae5', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
             </div>
-            <h2 className="text-xl font-bold text-gray-900 mb-2">Message envoy&eacute;</h2>
-            <p className="text-gray-500 text-sm">
-              Nous vous r&eacute;pondrons dans les plus brefs d&eacute;lais.
-            </p>
+            <h2 style={{ fontSize: '20px', fontWeight: 700, color: '#111827', marginBottom: '8px' }}>Message envoyé</h2>
+            <p style={{ fontSize: '15px', color: '#6b7280' }}>Nous vous répondrons dans les plus brefs délais.</p>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="space-y-2">
-              <Input
-                id="name"
-                label="Nom"
-                type="text"
-                required
-                placeholder="Votre nom"
-              />
+          <form onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <div>
+              <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Nom</label>
+              <input type="text" required placeholder="Votre nom" style={{ width: '100%', padding: '12px 16px', borderRadius: '10px', border: '1px solid #e5e7eb', fontSize: '15px', fontFamily: 'inherit', background: '#fff', color: '#111827', outline: 'none' }} />
             </div>
-            <div className="space-y-2">
-              <Input
-                id="email"
-                label="Email"
-                type="email"
-                required
-                placeholder="vous@exemple.com"
-              />
+            <div>
+              <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Email</label>
+              <input type="email" required placeholder="vous@exemple.com" style={{ width: '100%', padding: '12px 16px', borderRadius: '10px', border: '1px solid #e5e7eb', fontSize: '15px', fontFamily: 'inherit', background: '#fff', color: '#111827', outline: 'none' }} />
             </div>
-            <div className="space-y-2">
-              <label htmlFor="message" className="block text-sm font-medium text-gray-700">
-                Message
-              </label>
-              <textarea
-                id="message"
-                required
-                rows={5}
-                className="w-full px-4 py-3 rounded-xl text-sm resize-none bg-white text-gray-900 border border-gray-200 transition-colors placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-600 focus:border-transparent"
-                placeholder="Votre message..."
-              />
+            <div>
+              <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Message</label>
+              <textarea required rows={5} placeholder="Votre message..." style={{ width: '100%', padding: '12px 16px', borderRadius: '10px', border: '1px solid #e5e7eb', fontSize: '15px', fontFamily: 'inherit', background: '#fff', color: '#111827', outline: 'none', resize: 'vertical' }} />
             </div>
-            <Button type="submit" className="bg-violet-600 hover:bg-violet-700 text-white w-full py-3 rounded-xl">
-              Envoyer
-            </Button>
+            <button type="submit" style={{ width: '100%', padding: '14px', background: '#7c3aed', color: '#fff', border: 'none', borderRadius: '12px', fontSize: '16px', fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit' }}>Envoyer</button>
           </form>
         )}
       </div>
