@@ -1,98 +1,81 @@
-import { Globe, Briefcase, Calendar, ChefHat, User, Rocket } from 'lucide-react';
+import Link from 'next/link';
 
 const examples = [
   {
     title: 'Restaurant Le Provençal',
     category: 'Restaurant',
-    icon: ChefHat,
-    colors: ['#D97706', '#92400E'],
-    description: 'Menu, horaires et réservation',
+    slug: 'restaurant-le-provencal',
+    gradient: 'from-amber-600 to-amber-700',
   },
   {
     title: 'Portfolio Marie Dupont',
     category: 'Portfolio',
-    icon: Briefcase,
-    colors: ['#8B5CF6', '#6D28D9'],
-    description: 'Projets, compétences et contact',
+    slug: 'portfolio-marie-dupont',
+    gradient: 'from-purple-500 to-violet-500',
   },
   {
     title: 'Mariage Julie & Thomas',
     category: 'Événement',
-    icon: Calendar,
-    colors: ['#EC4899', '#BE185D'],
-    description: 'Invitation, lieu et RSVP',
+    slug: 'mariage-julie-thomas',
+    gradient: 'from-pink-500 to-rose-500',
   },
   {
     title: 'Boulangerie Chez Paul',
     category: 'Vitrine',
-    icon: Globe,
-    colors: ['#F59E0B', '#B45309'],
-    description: 'Produits, story et localisation',
+    slug: 'boulangerie-chez-paul',
+    gradient: 'from-amber-500 to-yellow-600',
   },
   {
     title: 'CV Développeur Web',
     category: 'CV',
-    icon: User,
-    colors: ['#06B6D4', '#0E7490'],
-    description: 'Parcours, skills et téléchargement',
+    slug: 'cv-developpeur-web',
+    gradient: 'from-teal-500 to-cyan-500',
   },
   {
     title: 'Lancement Produit SaaS',
     category: 'Landing',
-    icon: Rocket,
-    colors: ['#6366F1', '#4338CA'],
-    description: 'Features, pricing et CTA',
+    slug: 'lancement-produit-saas',
+    gradient: 'from-indigo-500 to-violet-600',
   },
 ];
 
 export function Examples() {
   return (
-    <section className="py-16 lg:py-24 px-4">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-10 sm:mb-16">
-          <span className="inline-block text-xs sm:text-sm font-semibold text-[var(--primary)] mb-2 sm:mb-3 tracking-wide uppercase">
-            Inspirez-vous
-          </span>
-          <h2 className="text-2xl lg:text-3xl font-extrabold tracking-tight mb-3 sm:mb-4">
-            Exemples d&apos;applications
+    <section id="examples" className="py-16 lg:py-24 bg-white">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12">
+          <p className="text-[#7c6df0] text-xs tracking-[0.2em] font-medium uppercase mb-3">
+            EXEMPLES
+          </p>
+          <h2 className="text-2xl lg:text-3xl font-bold mb-2">
+            Découvrez ce qu&apos;on peut créer
           </h2>
-          <p className="text-[var(--muted-foreground)] max-w-2xl mx-auto text-sm sm:text-base lg:text-lg">
-            Voici quelques exemples de ce que vous pouvez créer avec Happlier
+          <p className="text-gray-500">
+            Cliquez sur une carte pour voir l&apos;app en action
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
           {examples.map((example) => (
-            <div
-              key={example.title}
-              className="group rounded-xl sm:rounded-2xl border border-[var(--border)] bg-[var(--card)] overflow-hidden hover:shadow-xl hover:shadow-black/5 hover:-translate-y-1 transition-all duration-300"
+            <Link
+              key={example.slug}
+              href={`/${example.slug}`}
+              className="rounded-xl overflow-hidden border border-gray-200 hover:shadow-md transition"
             >
               <div
-                className="h-32 sm:h-44 flex flex-col items-center justify-center relative"
-                style={{
-                  background: `linear-gradient(135deg, ${example.colors[0]}, ${example.colors[1]})`,
-                }}
+                className={`h-32 lg:h-36 bg-gradient-to-br ${example.gradient} flex items-center justify-center`}
               >
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors" />
-                <example.icon className="w-8 h-8 sm:w-10 sm:h-10 text-white/90 mb-2 sm:mb-3 group-hover:scale-110 transition-transform" />
-                <span className="text-white text-sm sm:text-lg font-bold opacity-90 group-hover:opacity-100 transition-opacity px-4 text-center">
+                <span className="text-white font-semibold text-sm lg:text-base px-4 text-center">
                   {example.title}
                 </span>
               </div>
-              <div className="p-4 sm:p-5">
-                <div className="flex items-center justify-between">
-                  <h3 className="font-bold text-sm sm:text-base text-[var(--foreground)]">
-                    {example.category}
-                  </h3>
-                  <span className="text-xs font-medium text-[var(--muted-foreground)] bg-[var(--muted)] px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full">
-                    Exemple
-                  </span>
-                </div>
-                <p className="text-xs sm:text-sm text-[var(--muted-foreground)] mt-1 sm:mt-1.5">
-                  {example.description}
+              <div className="p-3 bg-white">
+                <p className="font-medium text-sm text-gray-900">
+                  {example.title}
                 </p>
+                <p className="text-xs text-gray-500">{example.category}</p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
