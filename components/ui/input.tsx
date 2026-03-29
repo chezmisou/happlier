@@ -10,20 +10,27 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     return (
       <div className="w-full">
         {label && (
-          <label htmlFor={id} className="block text-sm font-medium mb-1.5 text-[var(--foreground)]">
+          <label
+            htmlFor={id}
+            className="block text-sm font-medium mb-1.5 text-[var(--foreground)]"
+          >
             {label}
           </label>
         )}
         <input
           ref={ref}
           id={id}
-          className={`w-full px-3 py-2 rounded-lg border bg-transparent text-[var(--foreground)] placeholder:text-[var(--muted-foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:border-transparent transition-colors ${
-            error ? 'border-[var(--destructive)]' : 'border-[var(--border)]'
+          className={`w-full px-4 py-2.5 rounded-xl text-sm bg-[var(--card)] text-[var(--foreground)] border-2 transition-all duration-200 placeholder:text-[var(--muted-foreground)] focus:outline-none focus:ring-0 disabled:opacity-50 disabled:cursor-not-allowed ${
+            error
+              ? 'border-[var(--destructive)] focus:border-[var(--destructive)]'
+              : 'border-[var(--border)] focus:border-[var(--primary)] hover:border-[var(--primary)]/50'
           } ${className}`}
           {...props}
         />
         {error && (
-          <p className="mt-1 text-sm text-[var(--destructive)]">{error}</p>
+          <p className="mt-1.5 text-xs text-[var(--destructive)] font-medium">
+            {error}
+          </p>
         )}
       </div>
     );
