@@ -23,7 +23,7 @@ export default function Home() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
               <Button size="lg" className="bg-violet-600 hover:bg-violet-700 text-white px-8 py-6 text-lg rounded-xl" asChild>
-                <Link href="/signup">Cr&eacute;er mon app gratuitement</Link>
+                <Link href="/auth/signup">Cr&eacute;er mon app gratuitement</Link>
               </Button>
               <Button size="lg" variant="outline" className="border-white/20 text-white hover:bg-white/10 px-8 py-6 text-lg rounded-xl" asChild>
                 <Link href="/demo">Essayer la d&eacute;mo</Link>
