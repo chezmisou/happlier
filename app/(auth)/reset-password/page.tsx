@@ -35,13 +35,13 @@ export default function ResetPasswordPage() {
 
   if (success) {
     return (
-      <div className="min-h-screen flex items-center justify-center px-4 bg-[var(--background)]">
+      <div className="min-h-screen flex items-center justify-center px-4 py-8 bg-[var(--background)]">
         <div className="w-full max-w-md text-center space-y-4">
-          <div className="w-16 h-16 mx-auto bg-blue-100 rounded-full flex items-center justify-center">
-            <Mail className="w-8 h-8 text-blue-600" />
+          <div className="w-14 h-14 sm:w-16 sm:h-16 mx-auto bg-blue-100 rounded-full flex items-center justify-center">
+            <Mail className="w-7 h-7 sm:w-8 sm:h-8 text-blue-600" />
           </div>
-          <h1 className="text-2xl font-bold">Email envoyé</h1>
-          <p className="text-[var(--muted-foreground)]">
+          <h1 className="text-xl sm:text-2xl font-bold">Email envoyé</h1>
+          <p className="text-sm sm:text-base text-[var(--muted-foreground)]">
             Si un compte existe avec l&apos;adresse <strong>{email}</strong>, vous recevrez un lien de réinitialisation.
           </p>
           <Link href="/login">
@@ -53,14 +53,14 @@ export default function ResetPasswordPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 bg-[var(--background)]">
-      <div className="w-full max-w-md space-y-8">
+    <div className="min-h-screen flex items-center justify-center px-2 sm:px-4 py-8 bg-[var(--background)]">
+      <div className="w-full max-w-md space-y-6 sm:space-y-8 px-4 sm:px-0">
         <div className="text-center">
-          <Link href="/" className="text-2xl font-bold text-[var(--primary)]">
+          <Link href="/" className="text-xl sm:text-2xl font-bold text-[var(--primary)]">
             Happlier
           </Link>
-          <h1 className="mt-6 text-3xl font-bold">Mot de passe oublié</h1>
-          <p className="mt-2 text-[var(--muted-foreground)]">
+          <h1 className="mt-4 sm:mt-6 text-2xl sm:text-3xl font-bold">Mot de passe oublié</h1>
+          <p className="mt-2 text-sm sm:text-base text-[var(--muted-foreground)]">
             Entrez votre email pour recevoir un lien de réinitialisation
           </p>
         </div>

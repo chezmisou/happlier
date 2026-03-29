@@ -47,48 +47,48 @@ const examples = [
 
 export function Examples() {
   return (
-    <section className="py-24 px-4">
+    <section className="py-16 sm:py-24 px-4">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <span className="inline-block text-sm font-semibold text-[var(--primary)] mb-3 tracking-wide uppercase">
+        <div className="text-center mb-10 sm:mb-16">
+          <span className="inline-block text-xs sm:text-sm font-semibold text-[var(--primary)] mb-2 sm:mb-3 tracking-wide uppercase">
             Inspirez-vous
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight mb-4">
+          <h2 className="text-2xl sm:text-3xl lg:text-5xl font-extrabold tracking-tight mb-3 sm:mb-4">
             Exemples d&apos;applications
           </h2>
-          <p className="text-[var(--muted-foreground)] max-w-2xl mx-auto text-lg">
+          <p className="text-[var(--muted-foreground)] max-w-2xl mx-auto text-sm sm:text-lg">
             Voici quelques exemples de ce que vous pouvez créer avec Happlier
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {examples.map((example) => (
             <div
               key={example.title}
-              className="group rounded-2xl border border-[var(--border)] bg-[var(--card)] overflow-hidden hover:shadow-xl hover:shadow-black/5 hover:-translate-y-1 transition-all duration-300"
+              className="group rounded-xl sm:rounded-2xl border border-[var(--border)] bg-[var(--card)] overflow-hidden hover:shadow-xl hover:shadow-black/5 hover:-translate-y-1 transition-all duration-300"
             >
               <div
-                className="h-44 flex flex-col items-center justify-center relative"
+                className="h-32 sm:h-44 flex flex-col items-center justify-center relative"
                 style={{
                   background: `linear-gradient(135deg, ${example.colors[0]}, ${example.colors[1]})`,
                 }}
               >
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors" />
-                <example.icon className="w-10 h-10 text-white/90 mb-3 group-hover:scale-110 transition-transform" />
-                <span className="text-white text-lg font-bold opacity-90 group-hover:opacity-100 transition-opacity">
+                <example.icon className="w-8 h-8 sm:w-10 sm:h-10 text-white/90 mb-2 sm:mb-3 group-hover:scale-110 transition-transform" />
+                <span className="text-white text-sm sm:text-lg font-bold opacity-90 group-hover:opacity-100 transition-opacity px-4 text-center">
                   {example.title}
                 </span>
               </div>
-              <div className="p-5">
+              <div className="p-4 sm:p-5">
                 <div className="flex items-center justify-between">
-                  <h3 className="font-bold text-[var(--foreground)]">
+                  <h3 className="font-bold text-sm sm:text-base text-[var(--foreground)]">
                     {example.category}
                   </h3>
-                  <span className="text-xs font-medium text-[var(--muted-foreground)] bg-[var(--muted)] px-2.5 py-1 rounded-full">
+                  <span className="text-xs font-medium text-[var(--muted-foreground)] bg-[var(--muted)] px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full">
                     Exemple
                   </span>
                 </div>
-                <p className="text-sm text-[var(--muted-foreground)] mt-1.5">
+                <p className="text-xs sm:text-sm text-[var(--muted-foreground)] mt-1 sm:mt-1.5">
                   {example.description}
                 </p>
               </div>

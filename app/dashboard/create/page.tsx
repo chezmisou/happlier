@@ -4,7 +4,6 @@ import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { createClient } from '@/lib/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -41,6 +40,11 @@ export default function CreateAppPage() {
   const [generatedCode, setGeneratedCode] = useState<string | null>(null);
   const [logoFile, setLogoFile] = useState<File | null>(null);
   const [error, setError] = useState('');
+  const [isDemo, setIsDemo] = useState(false);
+
+  useEffect(() => {
+    setIsDemo(document.cookie.includes('demo_mode=true'));
+  }, []);
 
   const {
     register,
@@ -123,6 +127,10 @@ export default function CreateAppPage() {
   };
 
   const handlePublish = async () => {
+    if (isDemo) {
+      router.push('/dashboard');
+      return;
+    }
     router.push('/dashboard');
     router.refresh();
   };
@@ -130,44 +138,45 @@ export default function CreateAppPage() {
   // Preview state
   if (generatedCode) {
     return (
-      <div className="space-y-6 animate-fade-in">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div className="space-y-4 sm:space-y-6 animate-fade-in">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
           <div>
-            <h1 className="text-3xl font-extrabold tracking-tight">
+            <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
               Prévisualisation
             </h1>
-            <p className="text-[var(--muted-foreground)] text-sm mt-1">
-              Votre app a été générée avec succès
+            <p className="text-[var(--muted-foreground)] text-xs sm:text-sm mt-1">
+              {isDemo ? 'App générée en mode démo (non sauvegardée)' : 'Votre app a été générée avec succès'}
             </p>
           </div>
-          <div className="flex gap-3">
-            <Button variant="outline" onClick={() => setGeneratedCode(null)}>
-              <RotateCcw className="w-4 h-4 mr-2" />
-              Recommencer
+          <div className="flex gap-2 sm:gap-3 w-full sm:w-auto">
+            <Button variant="outline" onClick={() => setGeneratedCode(null)} className="flex-1 sm:flex-none">
+              <RotateCcw className="w-4 h-4 mr-1.5 sm:mr-2" />
+              <span className="sm:hidden">Refaire</span>
+              <span className="hidden sm:inline">Recommencer</span>
             </Button>
-            <Button onClick={handlePublish}>
-              <Eye className="w-4 h-4 mr-2" />
-              Mettre en ligne
+            <Button onClick={handlePublish} className="flex-1 sm:flex-none">
+              <Eye className="w-4 h-4 mr-1.5 sm:mr-2" />
+              {isDemo ? 'Retour' : 'Mettre en ligne'}
             </Button>
           </div>
         </div>
-        <div className="rounded-2xl border-2 border-[var(--border)] bg-[var(--card)] overflow-hidden shadow-xl">
+        <div className="rounded-xl sm:rounded-2xl border-2 border-[var(--border)] bg-[var(--card)] overflow-hidden shadow-xl">
           {/* Browser bar */}
-          <div className="flex items-center gap-2 px-4 py-3 border-b border-[var(--border)] bg-[var(--muted)]">
+          <div className="flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-3 border-b border-[var(--border)] bg-[var(--muted)]">
             <div className="flex gap-1.5">
-              <div className="w-3 h-3 rounded-full bg-red-400" />
-              <div className="w-3 h-3 rounded-full bg-amber-400" />
-              <div className="w-3 h-3 rounded-full bg-green-400" />
+              <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-red-400" />
+              <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-amber-400" />
+              <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-green-400" />
             </div>
-            <div className="flex-1 mx-4">
-              <div className="max-w-sm mx-auto h-6 rounded-md bg-[var(--background)] border border-[var(--border)] flex items-center px-3 text-xs text-[var(--muted-foreground)]">
+            <div className="flex-1 mx-2 sm:mx-4">
+              <div className="max-w-sm mx-auto h-5 sm:h-6 rounded-md bg-[var(--background)] border border-[var(--border)] flex items-center px-2 sm:px-3 text-[10px] sm:text-xs text-[var(--muted-foreground)]">
                 happlier.com/{slug}
               </div>
             </div>
           </div>
           <iframe
             srcDoc={generatedCode}
-            className="w-full h-[600px]"
+            className="w-full h-[400px] sm:h-[600px]"
             sandbox="allow-scripts"
             title="Prévisualisation de l'app"
           />
@@ -179,21 +188,21 @@ export default function CreateAppPage() {
   // Generation loading state
   if (generating) {
     return (
-      <div className="flex flex-col items-center justify-center py-32 animate-fade-in">
-        <div className="relative mb-8">
-          <div className="w-24 h-24 rounded-2xl bg-[var(--accent)] flex items-center justify-center">
-            <Sparkles className="w-12 h-12 text-[var(--primary)]" />
+      <div className="flex flex-col items-center justify-center py-20 sm:py-32 animate-fade-in px-4">
+        <div className="relative mb-6 sm:mb-8">
+          <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-[var(--accent)] flex items-center justify-center">
+            <Sparkles className="w-10 h-10 sm:w-12 sm:h-12 text-[var(--primary)]" />
           </div>
-          <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-[var(--primary)] flex items-center justify-center">
-            <Loader2 className="w-3.5 h-3.5 text-white animate-spin" />
+          <div className="absolute -top-1 -right-1 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-[var(--primary)] flex items-center justify-center">
+            <Loader2 className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-white animate-spin" />
           </div>
         </div>
-        <h2 className="text-2xl font-bold mb-2">Génération en cours...</h2>
-        <p className="text-[var(--muted-foreground)] text-center max-w-md">
+        <h2 className="text-xl sm:text-2xl font-bold mb-2">Génération en cours...</h2>
+        <p className="text-sm sm:text-base text-[var(--muted-foreground)] text-center max-w-md">
           Notre IA est en train de créer votre application. Cela prend
           généralement moins d&apos;une minute.
         </p>
-        <div className="mt-8 w-64 h-2 rounded-full bg-[var(--muted)] overflow-hidden">
+        <div className="mt-6 sm:mt-8 w-48 sm:w-64 h-1.5 sm:h-2 rounded-full bg-[var(--muted)] overflow-hidden">
           <div className="h-full rounded-full bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] animate-shimmer" />
         </div>
       </div>
@@ -204,26 +213,28 @@ export default function CreateAppPage() {
     <div className="max-w-2xl mx-auto animate-fade-in">
       <Link
         href="/dashboard"
-        className="inline-flex items-center gap-2 text-sm text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors mb-6"
+        className="inline-flex items-center gap-2 text-xs sm:text-sm text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors mb-4 sm:mb-6"
       >
         <ArrowLeft className="w-4 h-4" />
         Retour au dashboard
       </Link>
 
-      <div className="mb-8">
-        <h1 className="text-3xl font-extrabold tracking-tight mb-2">
+      <div className="mb-6 sm:mb-8">
+        <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight mb-1 sm:mb-2">
           Créer une application
         </h1>
-        <p className="text-[var(--muted-foreground)]">
-          Décrivez votre application et l&apos;IA la génère pour vous
+        <p className="text-sm sm:text-base text-[var(--muted-foreground)]">
+          {isDemo
+            ? 'Testez la génération — l\'app ne sera pas sauvegardée'
+            : 'Décrivez votre application et l\'IA la génère pour vous'}
         </p>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 sm:space-y-6">
         {/* Step 1: Identity */}
-        <div className="p-6 rounded-2xl border-2 border-[var(--border)] bg-[var(--card)] space-y-5">
-          <div className="flex items-center gap-2 text-sm font-semibold text-[var(--primary)]">
-            <span className="w-6 h-6 rounded-full bg-[var(--primary)] text-white text-xs flex items-center justify-center">
+        <div className="p-4 sm:p-6 rounded-xl sm:rounded-2xl border-2 border-[var(--border)] bg-[var(--card)] space-y-4 sm:space-y-5">
+          <div className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-[var(--primary)]">
+            <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-[var(--primary)] text-white text-xs flex items-center justify-center">
               1
             </span>
             Identité
@@ -245,16 +256,16 @@ export default function CreateAppPage() {
               error={errors.slug?.message}
               {...register('slug')}
             />
-            <div className="mt-1.5 text-sm">
+            <div className="mt-1.5 text-xs sm:text-sm">
               {slugChecking && (
                 <span className="text-[var(--muted-foreground)] flex items-center gap-1.5">
-                  <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                  <Loader2 className="w-3 h-3 sm:w-3.5 sm:h-3.5 animate-spin" />
                   Vérification...
                 </span>
               )}
               {!slugChecking && slugAvailable === true && (
                 <span className="text-emerald-600 flex items-center gap-1.5 font-medium">
-                  <Check className="w-3.5 h-3.5" />
+                  <Check className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                   happlier.com/{slug} est disponible
                 </span>
               )}
@@ -277,9 +288,9 @@ export default function CreateAppPage() {
         </div>
 
         {/* Step 2: Description */}
-        <div className="p-6 rounded-2xl border-2 border-[var(--border)] bg-[var(--card)] space-y-5">
-          <div className="flex items-center gap-2 text-sm font-semibold text-[var(--primary)]">
-            <span className="w-6 h-6 rounded-full bg-[var(--primary)] text-white text-xs flex items-center justify-center">
+        <div className="p-4 sm:p-6 rounded-xl sm:rounded-2xl border-2 border-[var(--border)] bg-[var(--card)] space-y-4 sm:space-y-5">
+          <div className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-[var(--primary)]">
+            <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-[var(--primary)] text-white text-xs flex items-center justify-center">
               2
             </span>
             Description
@@ -295,15 +306,15 @@ export default function CreateAppPage() {
         </div>
 
         {/* Step 3: Design */}
-        <div className="p-6 rounded-2xl border-2 border-[var(--border)] bg-[var(--card)] space-y-5">
-          <div className="flex items-center gap-2 text-sm font-semibold text-[var(--primary)]">
-            <span className="w-6 h-6 rounded-full bg-[var(--primary)] text-white text-xs flex items-center justify-center">
+        <div className="p-4 sm:p-6 rounded-xl sm:rounded-2xl border-2 border-[var(--border)] bg-[var(--card)] space-y-4 sm:space-y-5">
+          <div className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-[var(--primary)]">
+            <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-[var(--primary)] text-white text-xs flex items-center justify-center">
               3
             </span>
             Design
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
             <ColorPicker
               label="Couleur primaire"
               value={watch('color_primary')}
@@ -317,10 +328,10 @@ export default function CreateAppPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-2">
+            <label className="block text-xs sm:text-sm font-medium mb-2">
               Logo (optionnel)
             </label>
-            <label className="flex flex-col items-center justify-center w-full h-32 rounded-xl border-2 border-dashed border-[var(--border)] hover:border-[var(--primary)]/50 bg-[var(--muted)]/50 cursor-pointer transition-colors">
+            <label className="flex flex-col items-center justify-center w-full h-28 sm:h-32 rounded-xl border-2 border-dashed border-[var(--border)] hover:border-[var(--primary)]/50 bg-[var(--muted)]/50 cursor-pointer transition-colors">
               <input
                 type="file"
                 accept="image/png,image/jpeg,image/svg+xml"
@@ -328,17 +339,17 @@ export default function CreateAppPage() {
                 className="hidden"
               />
               {logoFile ? (
-                <div className="flex items-center gap-2 text-sm font-medium text-[var(--primary)]">
-                  <Check className="w-5 h-5" />
-                  {logoFile.name}
+                <div className="flex items-center gap-2 text-xs sm:text-sm font-medium text-[var(--primary)]">
+                  <Check className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <span className="truncate max-w-[200px]">{logoFile.name}</span>
                 </div>
               ) : (
                 <>
-                  <Upload className="w-8 h-8 text-[var(--muted-foreground)] mb-2" />
-                  <span className="text-sm text-[var(--muted-foreground)]">
+                  <Upload className="w-6 h-6 sm:w-8 sm:h-8 text-[var(--muted-foreground)] mb-2" />
+                  <span className="text-xs sm:text-sm text-[var(--muted-foreground)]">
                     Cliquez pour uploader
                   </span>
-                  <span className="text-xs text-[var(--muted-foreground)] mt-1">
+                  <span className="text-[10px] sm:text-xs text-[var(--muted-foreground)] mt-1">
                     PNG, JPG ou SVG, max 2 Mo
                   </span>
                 </>
@@ -348,13 +359,13 @@ export default function CreateAppPage() {
         </div>
 
         {error && (
-          <div className="p-4 rounded-xl bg-red-50 border border-red-200 text-sm text-[var(--destructive)] font-medium">
+          <div className="p-3 sm:p-4 rounded-xl bg-red-50 border border-red-200 text-xs sm:text-sm text-[var(--destructive)] font-medium">
             {error}
           </div>
         )}
 
         <Button type="submit" size="lg" className="w-full">
-          <Sparkles className="w-5 h-5 mr-2" />
+          <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
           Générer mon app
         </Button>
       </form>
