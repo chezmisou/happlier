@@ -6,7 +6,8 @@ import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { UserPlus, Sparkles, Check } from 'lucide-react';
+import { Separator } from '@/components/ui/separator';
+import { Check } from 'lucide-react';
 
 export default function SignupPage() {
   const router = useRouter();
@@ -67,45 +68,34 @@ export default function SignupPage() {
 
   if (success) {
     return (
-      <div className="min-h-screen flex items-center justify-center px-4 py-8 bg-[var(--background)] bg-grid">
-        <div className="w-full max-w-md text-center space-y-6 animate-fade-in">
-          <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto bg-emerald-100 rounded-2xl flex items-center justify-center">
-            <Check className="w-8 h-8 sm:w-10 sm:h-10 text-emerald-600" />
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="max-w-md w-full mx-4 bg-white rounded-2xl shadow-sm border border-gray-200 p-8 text-center">
+          <div className="w-16 h-16 mx-auto bg-emerald-100 rounded-2xl flex items-center justify-center mb-6">
+            <Check className="w-8 h-8 text-emerald-600" />
           </div>
-          <h1 className="text-xl sm:text-2xl font-extrabold">Vérifiez votre email</h1>
-          <p className="text-sm sm:text-base text-[var(--muted-foreground)] leading-relaxed">
-            Un lien de confirmation a été envoyé à{' '}
-            <strong className="text-[var(--foreground)]">{email}</strong>.
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">V&eacute;rifiez votre email</h1>
+          <p className="text-gray-500 mb-6">
+            Un lien de confirmation a &eacute;t&eacute; envoy&eacute; &agrave;{' '}
+            <strong className="text-gray-900">{email}</strong>.
             Cliquez dessus pour activer votre compte.
           </p>
-          <Link href="/login">
-            <Button variant="outline" size="lg">
-              Retour à la connexion
-            </Button>
-          </Link>
+          <Button variant="outline" className="rounded-xl" asChild>
+            <Link href="/login">Retour &agrave; la connexion</Link>
+          </Button>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-2 sm:px-4 py-8 bg-[var(--background)] bg-grid">
-      <div className="w-full max-w-md space-y-6 sm:space-y-8 animate-fade-in px-4 sm:px-0">
-        <div className="text-center">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-xl sm:text-2xl font-extrabold gradient-text"
-          >
-            <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-[var(--primary)]" />
-            Happlier
-          </Link>
-          <h1 className="mt-6 sm:mt-8 text-2xl sm:text-3xl font-extrabold tracking-tight">
-            Créer un compte
-          </h1>
-          <p className="mt-2 text-sm sm:text-base text-[var(--muted-foreground)]">
-            Commencez à créer vos applications en quelques minutes
-          </p>
-        </div>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="max-w-md w-full mx-4 bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
+        <h1 className="text-2xl font-bold text-gray-900 text-center mb-2">
+          Cr&eacute;er un compte
+        </h1>
+        <p className="text-gray-500 text-center mb-8">
+          Commencez &agrave; cr&eacute;er vos applications en quelques minutes
+        </p>
 
         <form onSubmit={handleSignup} className="space-y-4">
           <Input
@@ -140,31 +130,26 @@ export default function SignupPage() {
           />
 
           {error && (
-            <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-sm text-[var(--destructive)] font-medium">
+            <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-sm text-red-600 font-medium">
               {error}
             </div>
           )}
 
-          <Button type="submit" className="w-full" loading={loading}>
-            <UserPlus className="w-4 h-4 mr-2" />
-            Créer mon compte
+          <Button type="submit" className="bg-violet-600 hover:bg-violet-700 text-white w-full py-3 rounded-xl" loading={loading}>
+            Cr&eacute;er mon compte
           </Button>
         </form>
 
-        <div className="relative">
-          <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-[var(--border)]" />
-          </div>
-          <div className="relative flex justify-center text-sm">
-            <span className="px-4 bg-[var(--background)] text-[var(--muted-foreground)]">
-              Ou continuer avec
-            </span>
-          </div>
+        <div className="relative my-6">
+          <Separator />
+          <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-4 text-sm text-gray-500">
+            Ou continuer avec
+          </span>
         </div>
 
         <Button
           variant="outline"
-          className="w-full flex items-center justify-center gap-3 border-gray-300 text-black hover:bg-gray-50"
+          className="w-full border border-gray-200 bg-white hover:bg-gray-50 text-gray-700 py-3 rounded-xl flex items-center justify-center gap-3"
           onClick={handleGoogleLogin}
         >
           <svg width="20" height="20" viewBox="0 0 24 24">
@@ -176,12 +161,9 @@ export default function SignupPage() {
           Continuer avec Google
         </Button>
 
-        <p className="text-center text-sm text-[var(--muted-foreground)]">
-          Déjà un compte ?{' '}
-          <Link
-            href="/login"
-            className="text-[var(--primary)] hover:underline font-semibold"
-          >
+        <p className="text-center text-sm text-gray-500 mt-6">
+          D&eacute;j&agrave; un compte ?{' '}
+          <Link href="/login" className="text-violet-600 hover:underline font-semibold">
             Se connecter
           </Link>
         </p>

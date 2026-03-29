@@ -1,19 +1,17 @@
-import { forwardRef, TextareaHTMLAttributes } from 'react';
+import * as React from 'react';
+import { cn } from '@/lib/utils';
 
-interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   label?: string;
   error?: string;
 }
 
-const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
-  ({ className = '', label, error, id, ...props }, ref) => {
+const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
+  ({ className, label, error, id, ...props }, ref) => {
     return (
       <div className="w-full">
         {label && (
-          <label
-            htmlFor={id}
-            className="block text-sm font-medium mb-1.5 text-[var(--foreground)]"
-          >
+          <label htmlFor={id} className="block text-sm font-medium text-gray-700 mb-1.5">
             {label}
           </label>
         )}
@@ -21,18 +19,14 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           ref={ref}
           id={id}
           rows={5}
-          className={`w-full px-4 py-3 rounded-xl text-sm resize-none bg-[var(--card)] text-[var(--foreground)] border-2 transition-all duration-200 placeholder:text-[var(--muted-foreground)] focus:outline-none focus:ring-0 disabled:opacity-50 disabled:cursor-not-allowed ${
-            error
-              ? 'border-[var(--destructive)] focus:border-[var(--destructive)]'
-              : 'border-[var(--border)] focus:border-[var(--primary)] hover:border-[var(--primary)]/50'
-          } ${className}`}
+          className={cn(
+            'w-full px-4 py-3 rounded-xl text-sm resize-none bg-white text-gray-900 border border-gray-200 transition-colors placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-600 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed',
+            error && 'border-red-300 focus:ring-red-500',
+            className
+          )}
           {...props}
         />
-        {error && (
-          <p className="mt-1.5 text-xs text-[var(--destructive)] font-medium">
-            {error}
-          </p>
-        )}
+        {error && <p className="mt-1.5 text-xs text-red-500 font-medium">{error}</p>}
       </div>
     );
   }

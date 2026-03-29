@@ -3,14 +3,6 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-} from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ExternalLink, Trash2, CreditCard, Clock, Database } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
@@ -25,16 +17,16 @@ export function AppCard({ app }: AppCardProps) {
   const router = useRouter();
   const [deleting, setDeleting] = useState(false);
 
-  const statusVariant = {
-    active: 'success' as const,
-    trial: 'warning' as const,
-    expired: 'destructive' as const,
-  };
-
-  const statusLabel = {
+  const statusLabel: Record<string, string> = {
     active: 'Active',
     trial: 'Essai',
     expired: 'Expirée',
+  };
+
+  const statusColor: Record<string, string> = {
+    active: 'bg-emerald-100 text-emerald-700',
+    trial: 'bg-amber-100 text-amber-700',
+    expired: 'bg-red-100 text-red-700',
   };
 
   const days = daysRemaining(app.expires_at);
@@ -62,81 +54,69 @@ export function AppCard({ app }: AppCardProps) {
   };
 
   return (
-    <Card variant="bordered" className="hover:shadow-lg hover:shadow-black/5 hover:border-[var(--primary)]/20 transition-all duration-300">
-      <CardHeader>
-        <div className="flex items-start justify-between gap-2">
+    <div className="rounded-2xl border border-gray-200 bg-white hover:shadow-lg hover:border-violet-200 transition-all duration-300">
+      <div className="p-5">
+        <div className="flex items-start justify-between gap-2 mb-3">
           <div className="flex-1 min-w-0">
-            <CardTitle className="text-base sm:text-lg">{app.name}</CardTitle>
-            <CardDescription className="mt-1 sm:mt-1.5">
-              <Link
-                href={`/${app.slug}`}
-                target="_blank"
-                className="text-[var(--primary)] hover:underline inline-flex items-center gap-1 sm:gap-1.5 text-xs sm:text-sm font-medium"
-              >
-                happlier.com/{app.slug}
-                <ExternalLink className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
-              </Link>
-            </CardDescription>
+            <h3 className="text-base font-semibold text-gray-900">{app.name}</h3>
+            <Link
+              href={`/${app.slug}`}
+              target="_blank"
+              className="text-violet-600 hover:underline inline-flex items-center gap-1.5 text-sm font-medium mt-1"
+            >
+              happlier.com/{app.slug}
+              <ExternalLink className="w-3.5 h-3.5" />
+            </Link>
           </div>
-          <Badge variant={statusVariant[app.status]}>
+          <span className={`text-xs font-medium px-2.5 py-1 rounded-full ${statusColor[app.status]}`}>
             {statusLabel[app.status]}
-          </Badge>
+          </span>
         </div>
-      </CardHeader>
-      <CardContent>
-        <p className="text-xs sm:text-sm text-[var(--muted-foreground)] mb-3 sm:mb-4 line-clamp-2 leading-relaxed">
+
+        <p className="text-sm text-gray-500 mb-4 line-clamp-2 leading-relaxed">
           {app.description}
         </p>
 
-        {/* Color preview */}
-        <div className="flex items-center gap-2 mb-3 sm:mb-4">
+        <div className="flex items-center gap-2 mb-4">
           <div
-            className="w-4 h-4 sm:w-5 sm:h-5 rounded-md border border-[var(--border)]"
+            className="w-5 h-5 rounded-md border border-gray-200"
             style={{ backgroundColor: app.color_primary }}
           />
           <div
-            className="w-4 h-4 sm:w-5 sm:h-5 rounded-md border border-[var(--border)]"
+            className="w-5 h-5 rounded-md border border-gray-200"
             style={{ backgroundColor: app.color_secondary }}
           />
-          <span className="text-[10px] sm:text-xs text-[var(--muted-foreground)] ml-1">
-            Palette
-          </span>
+          <span className="text-xs text-gray-400 ml-1">Palette</span>
         </div>
 
-        <div className="flex items-center justify-between text-[10px] sm:text-xs text-[var(--muted-foreground)] pb-3 sm:pb-4 border-b border-[var(--border)]">
-          <span className="flex items-center gap-1 sm:gap-1.5">
-            <Clock className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+        <div className="flex items-center justify-between text-xs text-gray-500 pb-4 border-b border-gray-200">
+          <span className="flex items-center gap-1.5">
+            <Clock className="w-3.5 h-3.5" />
             Créée le {formatDate(app.created_at)}
           </span>
           {app.status === 'trial' && days !== null && (
-            <span
-              className={`font-semibold ${
-                days <= 1
-                  ? 'text-[var(--destructive)]'
-                  : 'text-amber-600'
-              }`}
-            >
+            <span className={`font-semibold ${days <= 1 ? 'text-red-600' : 'text-amber-600'}`}>
               {days}j restant{days !== 1 ? 's' : ''}
             </span>
           )}
         </div>
 
-        <div className="flex gap-2 mt-3 sm:mt-4">
+        <div className="flex gap-2 mt-4">
           <Link href={`/${app.slug}`} target="_blank" className="flex-1">
-            <Button variant="outline" size="sm" className="w-full text-xs sm:text-sm">
-              <ExternalLink className="w-3 h-3 sm:w-3.5 sm:h-3.5 mr-1 sm:mr-1.5" />
+            <Button variant="outline" size="sm" className="w-full text-sm">
+              <ExternalLink className="w-3.5 h-3.5 mr-1.5" />
               Voir
             </Button>
           </Link>
           <Link href={`/dashboard/apps/${app.id}/data`} className="flex-1">
-            <Button variant="outline" size="sm" className="w-full text-xs sm:text-sm">
-              <Database className="w-3 h-3 sm:w-3.5 sm:h-3.5 mr-1 sm:mr-1.5" />
+            <Button variant="outline" size="sm" className="w-full text-sm">
+              <Database className="w-3.5 h-3.5 mr-1.5" />
               Données
             </Button>
           </Link>
           {app.status === 'trial' && (
-            <Button size="sm" onClick={handleSubscribe} className="flex-1 text-xs sm:text-sm">
-              <CreditCard className="w-3 h-3 sm:w-3.5 sm:h-3.5 mr-1 sm:mr-1.5" />
+            <Button size="sm" onClick={handleSubscribe} className="flex-1 text-sm bg-violet-600 hover:bg-violet-700 text-white">
+              <CreditCard className="w-3.5 h-3.5 mr-1.5" />
               Souscrire
             </Button>
           )}
@@ -146,12 +126,12 @@ export function AppCard({ app }: AppCardProps) {
             onClick={handleDelete}
             loading={deleting}
             aria-label="Supprimer"
-            className="text-[var(--muted-foreground)] hover:text-[var(--destructive)] hover:bg-red-50"
+            className="text-gray-400 hover:text-red-600 hover:bg-red-50"
           >
             <Trash2 className="w-4 h-4" />
           </Button>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }

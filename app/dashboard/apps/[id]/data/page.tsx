@@ -82,19 +82,19 @@ export default function AppDataPage() {
     <div className="max-w-5xl mx-auto animate-fade-in">
       <Link
         href="/dashboard"
-        className="inline-flex items-center gap-2 text-xs sm:text-sm text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors mb-4 sm:mb-6"
+        className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-gray-900 transition-colors mb-6"
       >
         <ArrowLeft className="w-4 h-4" />
         Retour au dashboard
       </Link>
 
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-6 sm:mb-8">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-8">
         <div>
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight">
-            Données reçues
+          <h1 className="text-2xl font-bold text-gray-900">
+            Donn&eacute;es re&ccedil;ues
           </h1>
-          <p className="text-[var(--muted-foreground)] mt-1 text-xs sm:text-sm lg:text-base">
-            {appName ? `${appName} — ` : ''}{rows.length} entrée{rows.length !== 1 ? 's' : ''}
+          <p className="text-gray-500 mt-1 text-sm">
+            {appName ? `${appName} — ` : ''}{rows.length} entr&eacute;e{rows.length !== 1 ? 's' : ''}
           </p>
         </div>
         <Button variant="outline" size="sm" onClick={fetchData}>
@@ -108,10 +108,10 @@ export default function AppDataPage() {
         <div className="flex flex-wrap gap-2 mb-6">
           <button
             onClick={() => setSelectedCollection(null)}
-            className={`px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition-colors ${
+            className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
               !selectedCollection
-                ? 'bg-[var(--primary)] text-white'
-                : 'bg-[var(--muted)] text-[var(--muted-foreground)] hover:bg-[var(--accent)]'
+                ? 'bg-violet-600 text-white'
+                : 'bg-gray-100 text-gray-500 hover:bg-violet-50'
             }`}
           >
             Toutes
@@ -120,10 +120,10 @@ export default function AppDataPage() {
             <button
               key={col}
               onClick={() => setSelectedCollection(col)}
-              className={`px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition-colors ${
+              className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
                 selectedCollection === col
-                  ? 'bg-[var(--primary)] text-white'
-                  : 'bg-[var(--muted)] text-[var(--muted-foreground)] hover:bg-[var(--accent)]'
+                  ? 'bg-violet-600 text-white'
+                  : 'bg-gray-100 text-gray-500 hover:bg-violet-50'
               }`}
             >
               {col}
@@ -135,17 +135,17 @@ export default function AppDataPage() {
       {loading ? (
         <div className="space-y-4">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="h-20 bg-[var(--muted)] rounded-xl animate-pulse" />
+            <div key={i} className="h-20 bg-gray-100 rounded-xl animate-pulse" />
           ))}
         </div>
       ) : rows.length === 0 ? (
-        <div className="text-center py-12 sm:py-20">
-          <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 sm:mb-6 bg-[var(--accent)] rounded-2xl flex items-center justify-center">
-            <Database className="w-8 h-8 sm:w-10 sm:h-10 text-[var(--primary)]" />
+        <div className="text-center py-20">
+          <div className="w-20 h-20 mx-auto mb-6 bg-violet-50 rounded-2xl flex items-center justify-center">
+            <Database className="w-10 h-10 text-violet-600" />
           </div>
-          <h2 className="text-xl sm:text-2xl font-bold mb-2">Aucune donnée</h2>
-          <p className="text-sm sm:text-base text-[var(--muted-foreground)] max-w-md mx-auto">
-            Les données soumises via les formulaires de votre app apparaîtront ici.
+          <h2 className="text-xl font-semibold text-gray-900 mb-2">Aucune donn&eacute;e</h2>
+          <p className="text-gray-500 max-w-md mx-auto">
+            Les donn&eacute;es soumises via les formulaires de votre app appara&icirc;tront ici.
           </p>
         </div>
       ) : (
@@ -154,57 +154,56 @@ export default function AppDataPage() {
             const collectionRows = rows.filter((r) => r.collection === collection);
             if (collectionRows.length === 0) return null;
 
-            // Get all keys from data objects
             const dataKeys = [
               ...new Set(collectionRows.flatMap((r) => Object.keys(r.data))),
             ];
 
             return (
               <div key={collection}>
-                <h2 className="text-lg sm:text-xl font-bold mb-3 flex items-center gap-2">
-                  <Database className="w-4 h-4 sm:w-5 sm:h-5 text-[var(--primary)]" />
+                <h2 className="text-lg font-bold text-gray-900 mb-3 flex items-center gap-2">
+                  <Database className="w-5 h-5 text-violet-600" />
                   {collection}
-                  <span className="text-xs sm:text-sm font-normal text-[var(--muted-foreground)]">
+                  <span className="text-sm font-normal text-gray-500">
                     ({collectionRows.length})
                   </span>
                 </h2>
-                <div className="rounded-xl border border-[var(--border)] overflow-hidden bg-[var(--card)]">
+                <div className="rounded-xl border border-gray-200 overflow-hidden bg-white">
                   <div className="overflow-x-auto">
-                    <table className="w-full text-xs sm:text-sm">
+                    <table className="w-full text-sm">
                       <thead>
-                        <tr className="border-b border-[var(--border)] bg-[var(--muted)]">
-                          <th className="text-left px-3 sm:px-4 py-2.5 font-semibold text-[var(--muted-foreground)]">
+                        <tr className="border-b border-gray-200 bg-gray-50">
+                          <th className="text-left px-4 py-2.5 font-semibold text-gray-500">
                             Date
                           </th>
                           {dataKeys.map((key) => (
                             <th
                               key={key}
-                              className="text-left px-3 sm:px-4 py-2.5 font-semibold text-[var(--muted-foreground)]"
+                              className="text-left px-4 py-2.5 font-semibold text-gray-500"
                             >
                               {key}
                             </th>
                           ))}
-                          <th className="px-3 sm:px-4 py-2.5 w-10" />
+                          <th className="px-4 py-2.5 w-10" />
                         </tr>
                       </thead>
                       <tbody>
                         {collectionRows.map((row) => (
                           <tr
                             key={row.id}
-                            className="border-b border-[var(--border)] last:border-0 hover:bg-[var(--muted)]/50"
+                            className="border-b border-gray-200 last:border-0 hover:bg-gray-50"
                           >
-                            <td className="px-3 sm:px-4 py-2.5 text-[var(--muted-foreground)] whitespace-nowrap">
+                            <td className="px-4 py-2.5 text-gray-500 whitespace-nowrap">
                               {formatDate(row.created_at)}
                             </td>
                             {dataKeys.map((key) => (
-                              <td key={key} className="px-3 sm:px-4 py-2.5 max-w-[200px] truncate">
+                              <td key={key} className="px-4 py-2.5 text-gray-900 max-w-[200px] truncate">
                                 {String(row.data[key] ?? '')}
                               </td>
                             ))}
-                            <td className="px-3 sm:px-4 py-2.5">
+                            <td className="px-4 py-2.5">
                               <button
                                 onClick={() => handleDelete(row.id)}
-                                className="text-[var(--muted-foreground)] hover:text-[var(--destructive)] transition-colors"
+                                className="text-gray-400 hover:text-red-600 transition-colors cursor-pointer"
                                 title="Supprimer"
                               >
                                 <Trash2 className="w-3.5 h-3.5" />
