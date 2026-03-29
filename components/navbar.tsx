@@ -49,147 +49,47 @@ export function Navbar() {
             Happlier
           </Link>
 
-          {/* Desktop links */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }} className="desktop-nav">
             {links.map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                style={{
-                  fontSize: '14px',
-                  color: '#d1d5db',
-                  textDecoration: 'none',
-                  transition: 'color 0.2s',
-                }}
-              >
+              <Link key={l.href} href={l.href} style={{ fontSize: '14px', color: '#d1d5db', textDecoration: 'none' }}>
                 {l.label}
               </Link>
             ))}
           </div>
 
-          {/* Desktop CTA */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }} className="desktop-nav">
-            <Link
-              href="/login"
-              style={{
-                fontSize: '14px',
-                color: '#d1d5db',
-                textDecoration: 'none',
-                padding: '8px 16px',
-                borderRadius: '8px',
-                transition: 'color 0.2s',
-              }}
-            >
+            <Link href="/auth/login" style={{ fontSize: '14px', color: '#d1d5db', textDecoration: 'none', padding: '8px 16px', borderRadius: '8px' }}>
               Connexion
             </Link>
-            <Link
-              href="/signup"
-              style={{
-                fontSize: '14px',
-                fontWeight: 600,
-                color: '#ffffff',
-                textDecoration: 'none',
-                padding: '8px 20px',
-                borderRadius: '8px',
-                background: '#7c3aed',
-              }}
-            >
+            <Link href="/auth/signup" style={{ fontSize: '14px', fontWeight: 600, color: '#ffffff', textDecoration: 'none', padding: '8px 20px', borderRadius: '8px', background: '#7c3aed' }}>
               Commencer
             </Link>
           </div>
 
-          {/* Mobile hamburger */}
-          <button
-            onClick={() => setOpen(!open)}
-            className="mobile-nav"
-            style={{
-              background: 'none',
-              border: 'none',
-              cursor: 'pointer',
-              padding: '8px',
-              display: 'none',
-            }}
-          >
+          <button onClick={() => setOpen(!open)} className="mobile-nav" style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '8px', display: 'none' }}>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round">
-              {open ? (
-                <>
-                  <path d="M6 6l12 12" />
-                  <path d="M6 18L18 6" />
-                </>
-              ) : (
-                <>
-                  <path d="M3 8h18" />
-                  <path d="M3 16h18" />
-                </>
-              )}
+              {open ? (<><path d="M6 6l12 12" /><path d="M6 18L18 6" /></>) : (<><path d="M3 8h18" /><path d="M3 16h18" /></>)}
             </svg>
           </button>
         </div>
       </nav>
 
-      {/* Mobile menu */}
       {open && (
-        <div
-          className="mobile-menu"
-          style={{
-            position: 'fixed',
-            inset: 0,
-            zIndex: 99,
-            background: 'rgba(3,7,18,0.98)',
-            backdropFilter: 'blur(12px)',
-            paddingTop: '80px',
-            display: 'none',
-          }}
-        >
+        <div className="mobile-menu" style={{ position: 'fixed', inset: 0, zIndex: 99, background: 'rgba(3,7,18,0.98)', backdropFilter: 'blur(12px)', paddingTop: '80px', display: 'none' }}>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '24px' }}>
             {links.map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                onClick={() => setOpen(false)}
-                style={{ fontSize: '20px', color: '#d1d5db', textDecoration: 'none' }}
-              >
-                {l.label}
-              </Link>
+              <Link key={l.href} href={l.href} onClick={() => setOpen(false)} style={{ fontSize: '20px', color: '#d1d5db', textDecoration: 'none' }}>{l.label}</Link>
             ))}
             <div style={{ width: '200px', height: '1px', background: 'rgba(255,255,255,0.1)', margin: '8px 0' }} />
-            <Link
-              href="/login"
-              onClick={() => setOpen(false)}
-              style={{ fontSize: '18px', color: '#d1d5db', textDecoration: 'none' }}
-            >
-              Connexion
-            </Link>
-            <Link
-              href="/signup"
-              onClick={() => setOpen(false)}
-              style={{
-                fontSize: '16px',
-                fontWeight: 600,
-                color: '#ffffff',
-                textDecoration: 'none',
-                padding: '12px 32px',
-                borderRadius: '10px',
-                background: '#7c3aed',
-              }}
-            >
-              Commencer
-            </Link>
+            <Link href="/auth/login" onClick={() => setOpen(false)} style={{ fontSize: '18px', color: '#d1d5db', textDecoration: 'none' }}>Connexion</Link>
+            <Link href="/auth/signup" onClick={() => setOpen(false)} style={{ fontSize: '16px', fontWeight: 600, color: '#ffffff', textDecoration: 'none', padding: '12px 32px', borderRadius: '10px', background: '#7c3aed' }}>Commencer</Link>
           </div>
         </div>
       )}
 
       <style>{`
-        @media (min-width: 768px) {
-          .desktop-nav { display: flex !important; }
-          .mobile-nav { display: none !important; }
-          .mobile-menu { display: none !important; }
-        }
-        @media (max-width: 767px) {
-          .desktop-nav { display: none !important; }
-          .mobile-nav { display: block !important; }
-          .mobile-menu { display: block !important; }
-        }
+        @media (min-width: 768px) { .desktop-nav { display: flex !important; } .mobile-nav { display: none !important; } .mobile-menu { display: none !important; } }
+        @media (max-width: 767px) { .desktop-nav { display: none !important; } .mobile-nav { display: block !important; } .mobile-menu { display: block !important; } }
       `}</style>
     </>
   );
