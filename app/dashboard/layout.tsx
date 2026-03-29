@@ -36,7 +36,7 @@ export default async function DashboardLayout({
       {isDemo && <DemoBanner />}
 
       {/* Sidebar for desktop */}
-      <aside className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col" style={isDemo ? { top: '2.5rem' } : undefined}>
+      <aside className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-60 lg:flex-col" style={isDemo ? { top: '2.5rem' } : undefined}>
         <div className="flex flex-col flex-grow border-r border-[var(--border)] bg-[var(--card)] px-4 py-6">
           {/* Logo */}
           <Link
@@ -156,8 +156,8 @@ export default async function DashboardLayout({
       </div>
 
       {/* Main content */}
-      <main className="lg:pl-64">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 pt-20 lg:pt-8">
+      <main className="lg:pl-60">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 pt-20 lg:pt-8">
           {children}
         </div>
       </main>

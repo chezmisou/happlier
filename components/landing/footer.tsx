@@ -1,107 +1,38 @@
 import Link from 'next/link';
-import { Sparkles } from 'lucide-react';
 
 export function Footer() {
   return (
-    <footer className="border-t border-[var(--border)] bg-[var(--card)]">
-      {/* CTA Section */}
-      <div className="max-w-4xl mx-auto px-4 py-12 sm:py-16 text-center">
-        <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold mb-3 lg:mb-4">
-          Prêt à créer votre app ?
-        </h2>
-        <p className="text-sm sm:text-base lg:text-lg text-[var(--muted-foreground)] mb-6 sm:mb-8 max-w-lg mx-auto">
-          Rejoignez des centaines d&apos;utilisateurs qui ont déjà créé leur app
-          web avec Happlier.
-        </p>
-        <Link
-          href="/signup"
-          className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-3.5 rounded-xl bg-[var(--primary)] text-[var(--primary-foreground)] text-sm sm:text-base font-semibold shadow-lg shadow-indigo-500/25 hover:shadow-xl hover:shadow-indigo-500/30 transition-all duration-200 active:scale-[0.97]"
-        >
-          <Sparkles className="w-4 h-4 sm:w-5 sm:h-5" />
-          Commencer gratuitement
-        </Link>
-      </div>
-
-      {/* Links */}
-      <div className="border-t border-[var(--border)]">
-        <div className="max-w-7xl mx-auto px-4 py-8 sm:py-12">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
-            <div>
-              <span className="text-lg sm:text-xl font-extrabold gradient-text">
-                Happlier
-              </span>
-              <p className="mt-2 sm:mt-3 text-xs sm:text-sm text-[var(--muted-foreground)] leading-relaxed">
-                Créez votre application web en quelques minutes grâce à
-                l&apos;intelligence artificielle.
-              </p>
-            </div>
-            <div>
-              <h4 className="font-bold text-xs sm:text-sm uppercase tracking-wider mb-3 sm:mb-4 text-[var(--foreground)]">
-                Produit
-              </h4>
-              <ul className="space-y-2 sm:space-y-3 text-xs sm:text-sm text-[var(--muted-foreground)]">
-                <li>
-                  <a
-                    href="#how-it-works"
-                    className="hover:text-[var(--primary)] transition-colors"
-                  >
-                    Comment ça marche
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#pricing"
-                    className="hover:text-[var(--primary)] transition-colors"
-                  >
-                    Tarifs
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#faq"
-                    className="hover:text-[var(--primary)] transition-colors"
-                  >
-                    FAQ
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-bold text-xs sm:text-sm uppercase tracking-wider mb-3 sm:mb-4 text-[var(--foreground)]">
-                Légal
-              </h4>
-              <ul className="space-y-2 sm:space-y-3 text-xs sm:text-sm text-[var(--muted-foreground)]">
-                <li>
-                  <Link
-                    href="/cgv"
-                    className="hover:text-[var(--primary)] transition-colors"
-                  >
-                    Conditions générales de vente
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/mentions-legales"
-                    className="hover:text-[var(--primary)] transition-colors"
-                  >
-                    Mentions légales
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/confidentialite"
-                    className="hover:text-[var(--primary)] transition-colors"
-                  >
-                    Politique de confidentialité
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-[var(--border)] text-center text-xs sm:text-sm text-[var(--muted-foreground)]">
-            &copy; {new Date().getFullYear()} Happlier. Tous droits réservés.
-          </div>
+    <footer className="border-t border-gray-200 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-wrap justify-center gap-6 mb-4">
+          <Link
+            href="/tarifs"
+            className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
+          >
+            Tarifs
+          </Link>
+          <Link
+            href="/faq"
+            className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
+          >
+            FAQ
+          </Link>
+          <Link
+            href="/contact"
+            className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
+          >
+            Contact
+          </Link>
+          <Link
+            href="/mentions-legales"
+            className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
+          >
+            Mentions légales
+          </Link>
         </div>
+        <p className="text-xs text-gray-400 text-center">
+          Happlier — Créez votre app en quelques minutes
+        </p>
       </div>
     </footer>
   );
