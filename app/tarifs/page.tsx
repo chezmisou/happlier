@@ -1,6 +1,8 @@
 import Link from 'next/link';
-import { Navbar } from '@/components/landing/navbar';
-import { Footer } from '@/components/landing/footer';
+import { Navbar } from '@/components/navbar';
+import { Footer } from '@/components/footer';
+import { Button } from '@/components/ui/button';
+import { Check } from 'lucide-react';
 
 const plans = [
   {
@@ -40,85 +42,75 @@ const plans = [
 
 export default function TarifsPage() {
   return (
-    <div className="min-h-screen bg-white">
+    <>
       <Navbar />
-      <main className="pt-24 pb-16 lg:pb-24">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h1 className="text-3xl lg:text-5xl font-bold mb-4">
-              Tarifs simples et transparents
-            </h1>
-            <p className="text-gray-500 text-base lg:text-lg max-w-xl mx-auto">
-              Commencez gratuitement, payez uniquement pour garder vos apps en
-              ligne
-            </p>
-          </div>
+      <main className="pt-16">
+        <section className="py-20 lg:py-28 bg-white">
+          <div className="max-w-4xl mx-auto px-6">
+            <div className="text-center mb-16">
+              <p className="text-sm font-medium tracking-wider uppercase text-violet-600 mb-3">
+                Tarifs
+              </p>
+              <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+                Tarifs simples et transparents
+              </h1>
+              <p className="text-gray-500 max-w-xl mx-auto">
+                Commencez gratuitement, payez uniquement pour garder vos apps en ligne
+              </p>
+            </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-            {plans.map((plan) => (
-              <div
-                key={plan.name}
-                className={`rounded-xl p-6 sm:p-8 ${
-                  plan.highlighted
-                    ? 'border-2 border-[#7c6df0] shadow-lg'
-                    : 'border border-gray-200'
-                }`}
-              >
-                {plan.highlighted && (
-                  <span className="inline-block text-xs font-semibold text-[#7c6df0] bg-[#eeedfe] px-3 py-1 rounded-full mb-4">
-                    Recommandé
-                  </span>
-                )}
-                <h2 className="text-xl font-bold mb-1">{plan.name}</h2>
-                <p className="text-sm text-gray-500 mb-4">{plan.description}</p>
-
-                <div className="mb-6">
-                  <span className="text-4xl font-bold">{plan.price}</span>
-                  {plan.period && (
-                    <span className="text-gray-500 text-sm">{plan.period}</span>
-                  )}
-                </div>
-
-                <ul className="space-y-3 mb-8">
-                  {plan.features.map((feature) => (
-                    <li
-                      key={feature}
-                      className="flex items-center gap-2 text-sm text-gray-700"
-                    >
-                      <svg
-                        className="w-4 h-4 text-[#7c6df0] flex-shrink-0"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth={2}
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M5 13l4 4L19 7"
-                        />
-                      </svg>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-
-                <Link
-                  href={plan.href}
-                  className={`block text-center py-3 rounded-lg font-medium text-sm transition-colors ${
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+              {plans.map((plan) => (
+                <div
+                  key={plan.name}
+                  className={`rounded-2xl p-8 ${
                     plan.highlighted
-                      ? 'bg-[#7c6df0] text-white hover:bg-[#6b5ce0]'
-                      : 'border border-gray-300 text-gray-700 hover:bg-gray-50'
+                      ? 'border-2 border-violet-600 shadow-lg'
+                      : 'border border-gray-200'
                   }`}
                 >
-                  {plan.cta}
-                </Link>
-              </div>
-            ))}
+                  {plan.highlighted && (
+                    <span className="inline-block text-xs font-semibold text-violet-600 bg-violet-50 px-3 py-1 rounded-full mb-4">
+                      Recommandé
+                    </span>
+                  )}
+                  <h2 className="text-xl font-bold text-gray-900 mb-1">{plan.name}</h2>
+                  <p className="text-sm text-gray-500 mb-4">{plan.description}</p>
+
+                  <div className="mb-6">
+                    <span className="text-4xl font-bold text-gray-900">{plan.price}</span>
+                    {plan.period && (
+                      <span className="text-gray-500 text-sm">{plan.period}</span>
+                    )}
+                  </div>
+
+                  <ul className="space-y-3 mb-8">
+                    {plan.features.map((feature) => (
+                      <li key={feature} className="flex items-center gap-2 text-sm text-gray-700">
+                        <Check className="w-4 h-4 text-violet-600 flex-shrink-0" />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <Button
+                    className={`w-full py-3 rounded-xl ${
+                      plan.highlighted
+                        ? 'bg-violet-600 hover:bg-violet-700 text-white'
+                        : ''
+                    }`}
+                    variant={plan.highlighted ? 'default' : 'outline'}
+                    asChild
+                  >
+                    <Link href={plan.href}>{plan.cta}</Link>
+                  </Button>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        </section>
       </main>
       <Footer />
-    </div>
+    </>
   );
 }

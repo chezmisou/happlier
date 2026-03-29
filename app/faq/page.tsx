@@ -1,9 +1,11 @@
-'use client';
-
-import { useState } from 'react';
-import { Navbar } from '@/components/landing/navbar';
-import { Footer } from '@/components/landing/footer';
-import { ChevronDown } from 'lucide-react';
+import { Navbar } from '@/components/navbar';
+import { Footer } from '@/components/footer';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
 
 const faqs = [
   {
@@ -49,62 +51,36 @@ const faqs = [
 ];
 
 export default function FAQPage() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
-
   return (
-    <div className="min-h-screen bg-white">
+    <>
       <Navbar />
-      <main className="pt-24 pb-16 lg:pb-24">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h1 className="text-3xl lg:text-5xl font-bold mb-4">
-              Questions fréquentes
-            </h1>
-            <p className="text-gray-500 text-base lg:text-lg">
-              Tout ce que vous devez savoir sur Happlier
-            </p>
-          </div>
+      <main className="pt-16">
+        <section className="py-20 lg:py-28 bg-white">
+          <div className="max-w-3xl mx-auto px-6">
+            <div className="text-center mb-16">
+              <p className="text-sm font-medium tracking-wider uppercase text-violet-600 mb-3">
+                FAQ
+              </p>
+              <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+                Questions fr&eacute;quentes
+              </h1>
+              <p className="text-gray-500">
+                Tout ce que vous devez savoir sur Happlier
+              </p>
+            </div>
 
-          <div className="space-y-3">
-            {faqs.map((faq, index) => {
-              const isOpen = openIndex === index;
-              return (
-                <div
-                  key={index}
-                  className={`rounded-xl border overflow-hidden transition-colors ${
-                    isOpen
-                      ? 'border-[#7c6df0]/30 bg-[#eeedfe]/30'
-                      : 'border-gray-200 hover:border-gray-300'
-                  }`}
-                >
-                  <button
-                    className="w-full flex items-center justify-between p-4 sm:p-5 text-left text-sm sm:text-base font-semibold"
-                    onClick={() => setOpenIndex(isOpen ? null : index)}
-                    aria-expanded={isOpen}
-                  >
-                    <span className="pr-4">{faq.question}</span>
-                    <ChevronDown
-                      className={`w-4 h-4 flex-shrink-0 text-gray-400 transition-transform duration-200 ${
-                        isOpen ? 'rotate-180' : ''
-                      }`}
-                    />
-                  </button>
-                  <div
-                    className={`overflow-hidden transition-all duration-200 ${
-                      isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-                    }`}
-                  >
-                    <div className="px-4 pb-4 sm:px-5 sm:pb-5 text-sm text-gray-600 leading-relaxed">
-                      {faq.answer}
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+            <Accordion type="single" collapsible className="space-y-3">
+              {faqs.map((faq, index) => (
+                <AccordionItem key={index} value={`item-${index}`}>
+                  <AccordionTrigger>{faq.question}</AccordionTrigger>
+                  <AccordionContent>{faq.answer}</AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
           </div>
-        </div>
+        </section>
       </main>
       <Footer />
-    </div>
+    </>
   );
 }

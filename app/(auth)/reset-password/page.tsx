@@ -35,33 +35,33 @@ export default function ResetPasswordPage() {
 
   if (success) {
     return (
-      <div className="min-h-screen flex items-center justify-center px-4 py-8 bg-[var(--background)]">
-        <div className="w-full max-w-md text-center space-y-4">
-          <div className="w-14 h-14 sm:w-16 sm:h-16 mx-auto bg-blue-100 rounded-full flex items-center justify-center">
-            <Mail className="w-7 h-7 sm:w-8 sm:h-8 text-blue-600" />
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+        <div className="max-w-md w-full mx-4 bg-white rounded-2xl shadow-sm border border-gray-200 p-8 text-center">
+          <div className="w-16 h-16 mx-auto bg-blue-100 rounded-full flex items-center justify-center mb-6">
+            <Mail className="w-8 h-8 text-blue-600" />
           </div>
-          <h1 className="text-xl sm:text-2xl font-bold">Email envoyé</h1>
-          <p className="text-sm sm:text-base text-[var(--muted-foreground)]">
-            Si un compte existe avec l&apos;adresse <strong>{email}</strong>, vous recevrez un lien de réinitialisation.
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">Email envoy&eacute;</h1>
+          <p className="text-gray-500 mb-6">
+            Si un compte existe avec l&apos;adresse <strong className="text-gray-900">{email}</strong>, vous recevrez un lien de r&eacute;initialisation.
           </p>
-          <Link href="/login">
-            <Button variant="outline">Retour à la connexion</Button>
-          </Link>
+          <Button variant="outline" className="rounded-xl" asChild>
+            <Link href="/login">Retour &agrave; la connexion</Link>
+          </Button>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-2 sm:px-4 py-8 bg-[var(--background)]">
-      <div className="w-full max-w-md space-y-6 sm:space-y-8 px-4 sm:px-0">
-        <div className="text-center">
-          <Link href="/" className="text-xl sm:text-2xl font-bold text-[var(--primary)]">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="max-w-md w-full mx-4 bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
+        <div className="text-center mb-8">
+          <Link href="/" className="text-xl font-bold text-violet-600">
             Happlier
           </Link>
-          <h1 className="mt-4 sm:mt-6 text-2xl sm:text-3xl font-bold">Mot de passe oublié</h1>
-          <p className="mt-2 text-sm sm:text-base text-[var(--muted-foreground)]">
-            Entrez votre email pour recevoir un lien de réinitialisation
+          <h1 className="mt-6 text-2xl font-bold text-gray-900">Mot de passe oubli&eacute;</h1>
+          <p className="mt-2 text-gray-500">
+            Entrez votre email pour recevoir un lien de r&eacute;initialisation
           </p>
         </div>
 
@@ -78,17 +78,17 @@ export default function ResetPasswordPage() {
           />
 
           {error && (
-            <p className="text-sm text-[var(--destructive)]">{error}</p>
+            <p className="text-sm text-red-500">{error}</p>
           )}
 
-          <Button type="submit" className="w-full" loading={loading}>
+          <Button type="submit" className="bg-violet-600 hover:bg-violet-700 text-white w-full py-3 rounded-xl" loading={loading}>
             Envoyer le lien
           </Button>
         </form>
 
-        <p className="text-center text-sm text-[var(--muted-foreground)]">
-          <Link href="/login" className="text-[var(--primary)] hover:underline">
-            Retour à la connexion
+        <p className="text-center text-sm text-gray-500 mt-6">
+          <Link href="/login" className="text-violet-600 hover:underline">
+            Retour &agrave; la connexion
           </Link>
         </p>
       </div>

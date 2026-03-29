@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { LogIn, Sparkles } from 'lucide-react';
+import { Separator } from '@/components/ui/separator';
 
 function LoginForm() {
   const router = useRouter();
@@ -52,22 +52,13 @@ function LoginForm() {
   };
 
   return (
-    <div className="w-full max-w-md space-y-6 sm:space-y-8 animate-fade-in px-4 sm:px-0">
-      <div className="text-center">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 text-xl sm:text-2xl font-extrabold gradient-text"
-        >
-          <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-[var(--primary)]" />
-          Happlier
-        </Link>
-        <h1 className="mt-6 sm:mt-8 text-2xl sm:text-3xl font-extrabold tracking-tight">
-          Connexion
-        </h1>
-        <p className="mt-2 text-sm sm:text-base text-[var(--muted-foreground)]">
-          Connectez-vous pour accéder à vos applications
-        </p>
-      </div>
+    <div className="max-w-md w-full mx-4 bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
+      <h1 className="text-2xl font-bold text-gray-900 text-center mb-2">
+        Connexion
+      </h1>
+      <p className="text-gray-500 text-center mb-8">
+        Connectez-vous pour acc&eacute;der &agrave; vos applications
+      </p>
 
       <form onSubmit={handleLogin} className="space-y-4">
         <Input
@@ -92,31 +83,26 @@ function LoginForm() {
         />
 
         {error && (
-          <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-sm text-[var(--destructive)] font-medium">
+          <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-sm text-red-600 font-medium">
             {error}
           </div>
         )}
 
-        <Button type="submit" className="w-full" loading={loading}>
-          <LogIn className="w-4 h-4 mr-2" />
+        <Button type="submit" className="bg-violet-600 hover:bg-violet-700 text-white w-full py-3 rounded-xl" loading={loading}>
           Se connecter
         </Button>
       </form>
 
-      <div className="relative">
-        <div className="absolute inset-0 flex items-center">
-          <div className="w-full border-t border-[var(--border)]" />
-        </div>
-        <div className="relative flex justify-center text-sm">
-          <span className="px-4 bg-[var(--background)] text-[var(--muted-foreground)]">
-            Ou continuer avec
-          </span>
-        </div>
+      <div className="relative my-6">
+        <Separator />
+        <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-4 text-sm text-gray-500">
+          Ou continuer avec
+        </span>
       </div>
 
       <Button
         variant="outline"
-        className="w-full flex items-center justify-center gap-3 border-gray-300 text-black hover:bg-gray-50"
+        className="w-full border border-gray-200 bg-white hover:bg-gray-50 text-gray-700 py-3 rounded-xl flex items-center justify-center gap-3"
         onClick={handleGoogleLogin}
       >
         <svg width="20" height="20" viewBox="0 0 24 24">
@@ -128,20 +114,14 @@ function LoginForm() {
         Continuer avec Google
       </Button>
 
-      <div className="text-center text-sm space-y-2">
-        <Link
-          href="/reset-password"
-          className="text-[var(--primary)] hover:underline block font-medium"
-        >
-          Mot de passe oublié ?
+      <div className="text-center text-sm mt-6 space-y-2">
+        <Link href="/reset-password" className="text-violet-600 hover:underline block font-medium">
+          Mot de passe oubli&eacute; ?
         </Link>
-        <p className="text-[var(--muted-foreground)]">
+        <p className="text-gray-500">
           Pas encore de compte ?{' '}
-          <Link
-            href="/signup"
-            className="text-[var(--primary)] hover:underline font-semibold"
-          >
-            Créer un compte
+          <Link href="/signup" className="text-violet-600 hover:underline font-semibold">
+            Cr&eacute;er un compte
           </Link>
         </p>
       </div>
@@ -151,10 +131,10 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center px-2 sm:px-4 py-8 bg-[var(--background)] bg-grid">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <Suspense
         fallback={
-          <div className="w-full max-w-md h-96 animate-pulse bg-[var(--muted)] rounded-2xl" />
+          <div className="w-full max-w-md h-96 animate-pulse bg-gray-100 rounded-2xl" />
         }
       >
         <LoginForm />
