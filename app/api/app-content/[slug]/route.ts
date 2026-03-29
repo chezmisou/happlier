@@ -15,11 +15,11 @@ export async function GET(
 
   const { data } = await supabase
     .from('apps')
-    .select('generated_code, status')
+    .select('id, generated_code, status')
     .eq('slug', slug)
     .maybeSingle();
 
-  const app = data as AppContent | null;
+  const app = data as (AppContent & { id: string }) | null;
 
   if (!app) {
     return new NextResponse('<!DOCTYPE html><html><body><h1>404 - App introuvable</h1></body></html>', {
@@ -45,11 +45,18 @@ export async function GET(
     });
   }
 
-  return new NextResponse(app.generated_code, {
+  // Inject app-id meta tag for form data collection
+  let html = app.generated_code;
+  html = html.replace(
+    '<head>',
+    `<head>\n<meta name="app-id" content="${app.id}">`
+  );
+
+  return new NextResponse(html, {
     headers: {
       'Content-Type': 'text/html; charset=utf-8',
       'X-Frame-Options': 'SAMEORIGIN',
-      'Content-Security-Policy': "default-src 'self' fonts.googleapis.com fonts.gstatic.com; script-src 'unsafe-inline'; style-src 'unsafe-inline' fonts.googleapis.com",
+      'Content-Security-Policy': "default-src 'self' fonts.googleapis.com fonts.gstatic.com; script-src 'unsafe-inline'; style-src 'unsafe-inline' fonts.googleapis.com; connect-src 'self'",
     },
   });
 }

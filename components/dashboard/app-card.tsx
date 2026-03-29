@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { ExternalLink, Trash2, CreditCard, Clock } from 'lucide-react';
+import { ExternalLink, Trash2, CreditCard, Clock, Database } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 import { daysRemaining, formatDate } from '@/lib/utils';
 import type { App } from '@/types';
@@ -126,6 +126,12 @@ export function AppCard({ app }: AppCardProps) {
             <Button variant="outline" size="sm" className="w-full text-xs sm:text-sm">
               <ExternalLink className="w-3 h-3 sm:w-3.5 sm:h-3.5 mr-1 sm:mr-1.5" />
               Voir
+            </Button>
+          </Link>
+          <Link href={`/dashboard/apps/${app.id}/data`} className="flex-1">
+            <Button variant="outline" size="sm" className="w-full text-xs sm:text-sm">
+              <Database className="w-3 h-3 sm:w-3.5 sm:h-3.5 mr-1 sm:mr-1.5" />
+              Données
             </Button>
           </Link>
           {app.status === 'trial' && (

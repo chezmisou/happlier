@@ -220,10 +220,10 @@ export default function CreateAppPage() {
       </Link>
 
       <div className="mb-6 sm:mb-8">
-        <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight mb-1 sm:mb-2">
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight mb-1 sm:mb-2">
           Créer une application
         </h1>
-        <p className="text-sm sm:text-base text-[var(--muted-foreground)]">
+        <p className="text-sm sm:text-base lg:text-lg text-[var(--muted-foreground)]">
           {isDemo
             ? 'Testez la génération — l\'app ne sera pas sauvegardée'
             : 'Décrivez votre application et l\'IA la génère pour vous'}

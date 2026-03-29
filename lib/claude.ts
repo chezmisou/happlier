@@ -25,6 +25,44 @@ PARAMÈTRES FOURNIS :
 - Couleur secondaire : {colorSecondary}
 - URL du logo : {logoUrl} (à intégrer si fourni)
 
+FORMULAIRES DYNAMIQUES :
+- Si l'application contient des formulaires (contact, réservation, inscription, etc.), ajoute l'attribut data-collection sur chaque <form> avec un nom de collection descriptif (ex: data-collection="reservations", data-collection="contacts")
+- Ajoute le script suivant juste avant </body> pour intercepter les soumissions de formulaires :
+<script>
+document.querySelectorAll('form[data-collection]').forEach(function(form) {
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var formData = new FormData(form);
+    var data = {};
+    formData.forEach(function(value, key) { data[key] = value; });
+    var btn = form.querySelector('[type="submit"]');
+    if (btn) btn.disabled = true;
+    fetch('/api/app-data', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        app_id: document.querySelector('meta[name="app-id"]')?.content,
+        collection: form.getAttribute('data-collection'),
+        data: data
+      })
+    }).then(function(res) { return res.json(); })
+    .then(function() {
+      form.reset();
+      var msg = document.createElement('div');
+      msg.textContent = 'Envoyé avec succès !';
+      msg.style.cssText = 'padding:12px;margin-top:12px;background:#d1fae5;color:#065f46;border-radius:8px;text-align:center;font-weight:500;';
+      form.appendChild(msg);
+      setTimeout(function() { msg.remove(); }, 3000);
+    }).catch(function() {
+      alert('Erreur lors de l\\'envoi. Veuillez réessayer.');
+    }).finally(function() {
+      if (btn) btn.disabled = false;
+    });
+  });
+});
+</script>
+- Chaque formulaire doit avoir des champs avec l'attribut name pour que les données soient correctement collectées
+
 STRUCTURE ATTENDUE :
 - Génère UNIQUEMENT le code HTML complet, rien d'autre
 - Commence par <!DOCTYPE html> et termine par </html>

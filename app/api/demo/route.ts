@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
+import { getBaseUrl } from '@/lib/utils/get-base-url';
 
 export async function POST() {
-  const response = NextResponse.redirect(new URL('/dashboard', process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'));
+  const response = NextResponse.redirect(new URL('/dashboard', getBaseUrl()));
 
   response.cookies.set('demo_mode', 'true', {
     path: '/',

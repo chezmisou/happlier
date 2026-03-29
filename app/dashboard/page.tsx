@@ -36,7 +36,7 @@ export default async function DashboardPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-4 mb-6 sm:mb-8">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight">
             {isDemo ? 'Dashboard démo' : 'Mes applications'}
           </h1>
           <p className="text-[var(--muted-foreground)] mt-1 text-xs sm:text-sm">
@@ -113,7 +113,7 @@ export default async function DashboardPage() {
           </Link>
         </div>
       ) : (
-        <div className="grid gap-4 sm:gap-6 md:grid-cols-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
           {userApps.map((app) => (
             <AppCard key={app.id} app={app} />
           ))}

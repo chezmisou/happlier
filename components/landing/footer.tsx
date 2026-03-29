@@ -6,10 +6,10 @@ export function Footer() {
     <footer className="border-t border-[var(--border)] bg-[var(--card)]">
       {/* CTA Section */}
       <div className="max-w-4xl mx-auto px-4 py-12 sm:py-16 text-center">
-        <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold mb-3 sm:mb-4">
+        <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold mb-3 lg:mb-4">
           Prêt à créer votre app ?
         </h2>
-        <p className="text-sm sm:text-base text-[var(--muted-foreground)] mb-6 sm:mb-8 max-w-lg mx-auto">
+        <p className="text-sm sm:text-base lg:text-lg text-[var(--muted-foreground)] mb-6 sm:mb-8 max-w-lg mx-auto">
           Rejoignez des centaines d&apos;utilisateurs qui ont déjà créé leur app
           web avec Happlier.
         </p>
