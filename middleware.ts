@@ -2,6 +2,12 @@ import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 
 export async function middleware(request: NextRequest) {
+  // Allow demo mode users to access dashboard
+  const isDemo = request.cookies.get('demo_mode')?.value === 'true';
+  if (isDemo && request.nextUrl.pathname.startsWith('/dashboard')) {
+    return NextResponse.next();
+  }
+
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 

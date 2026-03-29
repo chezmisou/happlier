@@ -64,17 +64,17 @@ export function AppCard({ app }: AppCardProps) {
   return (
     <Card variant="bordered" className="hover:shadow-lg hover:shadow-black/5 hover:border-[var(--primary)]/20 transition-all duration-300">
       <CardHeader>
-        <div className="flex items-start justify-between">
+        <div className="flex items-start justify-between gap-2">
           <div className="flex-1 min-w-0">
-            <CardTitle className="text-lg">{app.name}</CardTitle>
-            <CardDescription className="mt-1.5">
+            <CardTitle className="text-base sm:text-lg">{app.name}</CardTitle>
+            <CardDescription className="mt-1 sm:mt-1.5">
               <Link
                 href={`/${app.slug}`}
                 target="_blank"
-                className="text-[var(--primary)] hover:underline inline-flex items-center gap-1.5 font-medium"
+                className="text-[var(--primary)] hover:underline inline-flex items-center gap-1 sm:gap-1.5 text-xs sm:text-sm font-medium"
               >
                 happlier.com/{app.slug}
-                <ExternalLink className="w-3.5 h-3.5" />
+                <ExternalLink className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
               </Link>
             </CardDescription>
           </div>
@@ -84,28 +84,28 @@ export function AppCard({ app }: AppCardProps) {
         </div>
       </CardHeader>
       <CardContent>
-        <p className="text-sm text-[var(--muted-foreground)] mb-4 line-clamp-2 leading-relaxed">
+        <p className="text-xs sm:text-sm text-[var(--muted-foreground)] mb-3 sm:mb-4 line-clamp-2 leading-relaxed">
           {app.description}
         </p>
 
         {/* Color preview */}
-        <div className="flex items-center gap-2 mb-4">
+        <div className="flex items-center gap-2 mb-3 sm:mb-4">
           <div
-            className="w-5 h-5 rounded-md border border-[var(--border)]"
+            className="w-4 h-4 sm:w-5 sm:h-5 rounded-md border border-[var(--border)]"
             style={{ backgroundColor: app.color_primary }}
           />
           <div
-            className="w-5 h-5 rounded-md border border-[var(--border)]"
+            className="w-4 h-4 sm:w-5 sm:h-5 rounded-md border border-[var(--border)]"
             style={{ backgroundColor: app.color_secondary }}
           />
-          <span className="text-xs text-[var(--muted-foreground)] ml-1">
+          <span className="text-[10px] sm:text-xs text-[var(--muted-foreground)] ml-1">
             Palette
           </span>
         </div>
 
-        <div className="flex items-center justify-between text-xs text-[var(--muted-foreground)] pb-4 border-b border-[var(--border)]">
-          <span className="flex items-center gap-1.5">
-            <Clock className="w-3.5 h-3.5" />
+        <div className="flex items-center justify-between text-[10px] sm:text-xs text-[var(--muted-foreground)] pb-3 sm:pb-4 border-b border-[var(--border)]">
+          <span className="flex items-center gap-1 sm:gap-1.5">
+            <Clock className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
             Créée le {formatDate(app.created_at)}
           </span>
           {app.status === 'trial' && days !== null && (
@@ -116,22 +116,21 @@ export function AppCard({ app }: AppCardProps) {
                   : 'text-amber-600'
               }`}
             >
-              {days} jour{days !== 1 ? 's' : ''} restant
-              {days !== 1 ? 's' : ''}
+              {days}j restant{days !== 1 ? 's' : ''}
             </span>
           )}
         </div>
 
-        <div className="flex gap-2 mt-4">
+        <div className="flex gap-2 mt-3 sm:mt-4">
           <Link href={`/${app.slug}`} target="_blank" className="flex-1">
-            <Button variant="outline" size="sm" className="w-full">
-              <ExternalLink className="w-3.5 h-3.5 mr-1.5" />
+            <Button variant="outline" size="sm" className="w-full text-xs sm:text-sm">
+              <ExternalLink className="w-3 h-3 sm:w-3.5 sm:h-3.5 mr-1 sm:mr-1.5" />
               Voir
             </Button>
           </Link>
           {app.status === 'trial' && (
-            <Button size="sm" onClick={handleSubscribe} className="flex-1">
-              <CreditCard className="w-3.5 h-3.5 mr-1.5" />
+            <Button size="sm" onClick={handleSubscribe} className="flex-1 text-xs sm:text-sm">
+              <CreditCard className="w-3 h-3 sm:w-3.5 sm:h-3.5 mr-1 sm:mr-1.5" />
               Souscrire
             </Button>
           )}

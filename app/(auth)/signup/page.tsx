@@ -64,13 +64,13 @@ export default function SignupPage() {
 
   if (success) {
     return (
-      <div className="min-h-screen flex items-center justify-center px-4 bg-[var(--background)] bg-grid">
+      <div className="min-h-screen flex items-center justify-center px-4 py-8 bg-[var(--background)] bg-grid">
         <div className="w-full max-w-md text-center space-y-6 animate-fade-in">
-          <div className="w-20 h-20 mx-auto bg-emerald-100 rounded-2xl flex items-center justify-center">
-            <Check className="w-10 h-10 text-emerald-600" />
+          <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto bg-emerald-100 rounded-2xl flex items-center justify-center">
+            <Check className="w-8 h-8 sm:w-10 sm:h-10 text-emerald-600" />
           </div>
-          <h1 className="text-2xl font-extrabold">Vérifiez votre email</h1>
-          <p className="text-[var(--muted-foreground)] leading-relaxed">
+          <h1 className="text-xl sm:text-2xl font-extrabold">Vérifiez votre email</h1>
+          <p className="text-sm sm:text-base text-[var(--muted-foreground)] leading-relaxed">
             Un lien de confirmation a été envoyé à{' '}
             <strong className="text-[var(--foreground)]">{email}</strong>.
             Cliquez dessus pour activer votre compte.
@@ -86,20 +86,20 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 bg-[var(--background)] bg-grid">
-      <div className="w-full max-w-md space-y-8 animate-fade-in">
+    <div className="min-h-screen flex items-center justify-center px-2 sm:px-4 py-8 bg-[var(--background)] bg-grid">
+      <div className="w-full max-w-md space-y-6 sm:space-y-8 animate-fade-in px-4 sm:px-0">
         <div className="text-center">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-2xl font-extrabold gradient-text"
+            className="inline-flex items-center gap-2 text-xl sm:text-2xl font-extrabold gradient-text"
           >
-            <Sparkles className="w-6 h-6 text-[var(--primary)]" />
+            <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-[var(--primary)]" />
             Happlier
           </Link>
-          <h1 className="mt-8 text-3xl font-extrabold tracking-tight">
+          <h1 className="mt-6 sm:mt-8 text-2xl sm:text-3xl font-extrabold tracking-tight">
             Créer un compte
           </h1>
-          <p className="mt-2 text-[var(--muted-foreground)]">
+          <p className="mt-2 text-sm sm:text-base text-[var(--muted-foreground)]">
             Commencez à créer vos applications en quelques minutes
           </p>
         </div>

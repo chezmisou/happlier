@@ -4,27 +4,36 @@ import { createAdminClient } from '@/lib/supabase/admin';
 import { generateApp } from '@/lib/claude';
 import { createAppSchema } from '@/lib/validations';
 import { isReservedSlug } from '@/lib/utils';
+import { cookies } from 'next/headers';
 
 export async function POST(request: NextRequest) {
   try {
-    const supabase = await createClient();
-    const { data: { user } } = await supabase.auth.getUser();
+    const cookieStore = await cookies();
+    const isDemo = cookieStore.get('demo_mode')?.value === 'true';
 
-    if (!user) {
-      return NextResponse.json({ error: 'Non authentifié' }, { status: 401 });
-    }
+    let user = null;
 
-    // Check app limit
-    const { count } = await supabase
-      .from('apps')
-      .select('*', { count: 'exact', head: true })
-      .eq('user_id', user.id);
+    if (!isDemo) {
+      const supabase = await createClient();
+      const { data: { user: authUser } } = await supabase.auth.getUser();
 
-    if (count !== null && count >= 2) {
-      return NextResponse.json(
-        { error: 'Vous avez atteint la limite de 2 applications' },
-        { status: 403 }
-      );
+      if (!authUser) {
+        return NextResponse.json({ error: 'Non authentifié' }, { status: 401 });
+      }
+      user = authUser;
+
+      // Check app limit
+      const { count } = await supabase
+        .from('apps')
+        .select('*', { count: 'exact', head: true })
+        .eq('user_id', user.id);
+
+      if (count !== null && count >= 2) {
+        return NextResponse.json(
+          { error: 'Vous avez atteint la limite de 2 applications' },
+          { status: 403 }
+        );
+      }
     }
 
     const formData = await request.formData();
@@ -49,7 +58,23 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Ce slug est réservé' }, { status: 400 });
     }
 
-    // Check slug availability
+    // In demo mode, just generate the code without saving
+    if (isDemo) {
+      const generatedCode = await generateApp({
+        name: parsed.data.name,
+        description: parsed.data.description,
+        category: parsed.data.category || null,
+        colorPrimary: parsed.data.color_primary,
+        colorSecondary: parsed.data.color_secondary,
+        logoUrl: null,
+      });
+
+      return NextResponse.json({ code: generatedCode });
+    }
+
+    // Non-demo flow: check slug, upload logo, save to DB
+    const supabase = await createClient();
+
     const { data: existing } = await supabase
       .from('apps')
       .select('id')
@@ -70,7 +95,7 @@ export async function POST(request: NextRequest) {
 
       const adminClient = createAdminClient();
       const ext = logoFile.name.split('.').pop();
-      const path = `logos/${user.id}/${parsed.data.slug}.${ext}`;
+      const path = `logos/${user!.id}/${parsed.data.slug}.${ext}`;
       const buffer = Buffer.from(await logoFile.arrayBuffer());
 
       const { error: uploadError } = await adminClient.storage
@@ -100,7 +125,7 @@ export async function POST(request: NextRequest) {
 
     // Save to database
     const { error: insertError } = await supabase.from('apps').insert({
-      user_id: user.id,
+      user_id: user!.id,
       name: parsed.data.name,
       slug: parsed.data.slug,
       description: parsed.data.description,

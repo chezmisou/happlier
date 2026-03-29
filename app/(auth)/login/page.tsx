@@ -49,19 +49,19 @@ function LoginForm() {
   };
 
   return (
-    <div className="w-full max-w-md space-y-8 animate-fade-in">
+    <div className="w-full max-w-md space-y-6 sm:space-y-8 animate-fade-in px-4 sm:px-0">
       <div className="text-center">
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-2xl font-extrabold gradient-text"
+          className="inline-flex items-center gap-2 text-xl sm:text-2xl font-extrabold gradient-text"
         >
-          <Sparkles className="w-6 h-6 text-[var(--primary)]" />
+          <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-[var(--primary)]" />
           Happlier
         </Link>
-        <h1 className="mt-8 text-3xl font-extrabold tracking-tight">
+        <h1 className="mt-6 sm:mt-8 text-2xl sm:text-3xl font-extrabold tracking-tight">
           Connexion
         </h1>
-        <p className="mt-2 text-[var(--muted-foreground)]">
+        <p className="mt-2 text-sm sm:text-base text-[var(--muted-foreground)]">
           Connectez-vous pour accéder à vos applications
         </p>
       </div>
@@ -143,7 +143,7 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 bg-[var(--background)] bg-grid">
+    <div className="min-h-screen flex items-center justify-center px-2 sm:px-4 py-8 bg-[var(--background)] bg-grid">
       <Suspense
         fallback={
           <div className="w-full max-w-md h-96 animate-pulse bg-[var(--muted)] rounded-2xl" />

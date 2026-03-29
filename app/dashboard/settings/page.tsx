@@ -61,35 +61,35 @@ export default function SettingsPage() {
 
   if (loading) {
     return (
-      <div className="max-w-2xl space-y-6">
-        <div className="h-8 w-48 bg-[var(--muted)] rounded-lg animate-pulse" />
-        <div className="h-80 bg-[var(--muted)] rounded-2xl animate-pulse" />
+      <div className="max-w-2xl space-y-4 sm:space-y-6">
+        <div className="h-7 sm:h-8 w-40 sm:w-48 bg-[var(--muted)] rounded-lg animate-pulse" />
+        <div className="h-64 sm:h-80 bg-[var(--muted)] rounded-xl sm:rounded-2xl animate-pulse" />
       </div>
     );
   }
 
   return (
     <div className="max-w-2xl animate-fade-in">
-      <div className="mb-8">
-        <h1 className="text-3xl font-extrabold tracking-tight">
+      <div className="mb-6 sm:mb-8">
+        <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
           Paramètres du compte
         </h1>
-        <p className="text-[var(--muted-foreground)] mt-1 text-sm">
+        <p className="text-[var(--muted-foreground)] mt-1 text-xs sm:text-sm">
           Gérez vos informations personnelles et votre abonnement
         </p>
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         {/* Profile card */}
         <Card variant="bordered">
           <CardHeader>
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-[var(--accent)] flex items-center justify-center">
-                <User className="w-5 h-5 text-[var(--primary)]" />
+              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[var(--accent)] flex items-center justify-center">
+                <User className="w-4 h-4 sm:w-5 sm:h-5 text-[var(--primary)]" />
               </div>
               <div>
-                <CardTitle>Informations personnelles</CardTitle>
-                <CardDescription>
+                <CardTitle className="text-sm sm:text-base">Informations personnelles</CardTitle>
+                <CardDescription className="text-xs sm:text-sm">
                   Votre profil et vos coordonnées
                 </CardDescription>
               </div>
@@ -112,7 +112,7 @@ export default function SettingsPage() {
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
               />
-              <p className="mt-1 text-xs text-[var(--muted-foreground)] flex items-center gap-1.5">
+              <p className="mt-1 text-[10px] sm:text-xs text-[var(--muted-foreground)] flex items-center gap-1.5">
                 <Phone className="w-3 h-3" />
                 Pour recevoir les notifications SMS
               </p>
@@ -120,7 +120,7 @@ export default function SettingsPage() {
 
             {message && (
               <div
-                className={`flex items-center gap-2 p-3 rounded-xl text-sm font-medium ${
+                className={`flex items-center gap-2 p-3 rounded-xl text-xs sm:text-sm font-medium ${
                   message.includes('Erreur')
                     ? 'bg-red-50 text-[var(--destructive)]'
                     : 'bg-emerald-50 text-emerald-700'
@@ -143,24 +143,24 @@ export default function SettingsPage() {
         <Card variant="bordered">
           <CardHeader>
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-[var(--accent)] flex items-center justify-center">
-                <CreditCard className="w-5 h-5 text-[var(--primary)]" />
+              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[var(--accent)] flex items-center justify-center">
+                <CreditCard className="w-4 h-4 sm:w-5 sm:h-5 text-[var(--primary)]" />
               </div>
-              <div className="flex-1">
-                <div className="flex items-center gap-2">
-                  <CardTitle>Plan actuel</CardTitle>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <CardTitle className="text-sm sm:text-base">Plan actuel</CardTitle>
                   <Badge variant={profile?.plan === 'free' ? 'outline' : 'success'}>
                     {profile?.plan === 'free' ? 'Gratuit' : 'Payant'}
                   </Badge>
                 </div>
-                <CardDescription>
+                <CardDescription className="text-xs sm:text-sm">
                   Gérez votre abonnement
                 </CardDescription>
               </div>
             </div>
           </CardHeader>
           <CardContent>
-            <div className="p-4 rounded-xl bg-[var(--muted)] text-sm text-[var(--muted-foreground)]">
+            <div className="p-3 sm:p-4 rounded-xl bg-[var(--muted)] text-xs sm:text-sm text-[var(--muted-foreground)]">
               {profile?.plan === 'free'
                 ? 'Vous êtes sur le plan gratuit. Souscrivez à un abonnement pour garder vos apps en ligne sans limite.'
                 : 'Votre abonnement est actif. Vos apps restent en ligne sans expiration.'}

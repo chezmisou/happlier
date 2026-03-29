@@ -45,48 +45,48 @@ export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section id="faq" className="py-24 px-4">
+    <section id="faq" className="py-16 sm:py-24 px-4">
       <div className="max-w-3xl mx-auto">
-        <div className="text-center mb-16">
-          <span className="inline-block text-sm font-semibold text-[var(--primary)] mb-3 tracking-wide uppercase">
+        <div className="text-center mb-10 sm:mb-16">
+          <span className="inline-block text-xs sm:text-sm font-semibold text-[var(--primary)] mb-2 sm:mb-3 tracking-wide uppercase">
             FAQ
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight mb-4">
+          <h2 className="text-2xl sm:text-3xl lg:text-5xl font-extrabold tracking-tight mb-3 sm:mb-4">
             Questions fréquentes
           </h2>
-          <p className="text-[var(--muted-foreground)] text-lg">
+          <p className="text-[var(--muted-foreground)] text-sm sm:text-lg">
             Tout ce que vous devez savoir sur Happlier
           </p>
         </div>
 
-        <div className="space-y-3">
+        <div className="space-y-2 sm:space-y-3">
           {faqs.map((faq, index) => {
             const isOpen = openIndex === index;
             return (
               <div
                 key={index}
-                className={`rounded-2xl border-2 overflow-hidden transition-all duration-300 ${
+                className={`rounded-xl sm:rounded-2xl border-2 overflow-hidden transition-all duration-300 ${
                   isOpen
                     ? 'border-[var(--primary)]/30 bg-[var(--accent)]/30 shadow-md'
                     : 'border-[var(--border)] bg-[var(--card)] hover:border-[var(--primary)]/20'
                 }`}
               >
                 <button
-                  className="w-full flex items-center justify-between p-5 text-left font-semibold transition-colors"
+                  className="w-full flex items-center justify-between p-4 sm:p-5 text-left text-sm sm:text-base font-semibold transition-colors"
                   onClick={() =>
                     setOpenIndex(isOpen ? null : index)
                   }
                   aria-expanded={isOpen}
                 >
-                  <span className="pr-4">{faq.question}</span>
+                  <span className="pr-3 sm:pr-4">{faq.question}</span>
                   <div
-                    className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
+                    className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
                       isOpen
                         ? 'bg-[var(--primary)] text-white rotate-180'
                         : 'bg-[var(--muted)] text-[var(--muted-foreground)]'
                     }`}
                   >
-                    <ChevronDown className="w-4 h-4" />
+                    <ChevronDown className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   </div>
                 </button>
                 <div
@@ -94,7 +94,7 @@ export function FAQ() {
                     isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
                   }`}
                 >
-                  <div className="px-5 pb-5 text-[var(--muted-foreground)] leading-relaxed">
+                  <div className="px-4 pb-4 sm:px-5 sm:pb-5 text-sm sm:text-base text-[var(--muted-foreground)] leading-relaxed">
                     {faq.answer}
                   </div>
                 </div>

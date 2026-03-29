@@ -39,41 +39,41 @@ const plans = [
 
 export function Pricing() {
   return (
-    <section id="pricing" className="py-24 px-4 bg-[var(--muted)]/50">
+    <section id="pricing" className="py-16 sm:py-24 px-4 bg-[var(--muted)]/50">
       <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-16">
-          <span className="inline-block text-sm font-semibold text-[var(--primary)] mb-3 tracking-wide uppercase">
+        <div className="text-center mb-10 sm:mb-16">
+          <span className="inline-block text-xs sm:text-sm font-semibold text-[var(--primary)] mb-2 sm:mb-3 tracking-wide uppercase">
             Tarification
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight mb-4">
+          <h2 className="text-2xl sm:text-3xl lg:text-5xl font-extrabold tracking-tight mb-3 sm:mb-4">
             Tarifs simples et transparents
           </h2>
-          <p className="text-[var(--muted-foreground)] max-w-2xl mx-auto text-lg">
+          <p className="text-[var(--muted-foreground)] max-w-2xl mx-auto text-sm sm:text-lg">
             Commencez gratuitement, payez uniquement pour garder vos apps en
             ligne
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
           {plans.map((plan) => (
             <div
               key={plan.name}
-              className={`relative rounded-2xl p-8 transition-all duration-300 ${
+              className={`relative rounded-xl sm:rounded-2xl p-6 sm:p-8 transition-all duration-300 ${
                 plan.highlighted
-                  ? 'bg-gradient-to-br from-[var(--primary)] to-[var(--secondary)] text-white shadow-2xl shadow-indigo-500/25 scale-[1.02]'
+                  ? 'bg-gradient-to-br from-[var(--primary)] to-[var(--secondary)] text-white shadow-2xl shadow-indigo-500/25 md:scale-[1.02]'
                   : 'bg-[var(--card)] border-2 border-[var(--border)] hover:border-[var(--primary)]/30 hover:shadow-lg'
               }`}
             >
               {plan.highlighted && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 inline-flex items-center gap-1.5 px-4 py-1.5 bg-amber-400 text-amber-950 text-xs font-bold rounded-full shadow-lg">
-                  <Sparkles className="w-3.5 h-3.5" />
+                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 inline-flex items-center gap-1.5 px-3 sm:px-4 py-1 sm:py-1.5 bg-amber-400 text-amber-950 text-xs font-bold rounded-full shadow-lg">
+                  <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                   Populaire
                 </div>
               )}
 
-              <h3 className="text-xl font-bold mb-1">{plan.name}</h3>
+              <h3 className="text-lg sm:text-xl font-bold mb-1">{plan.name}</h3>
               <p
-                className={`text-sm mb-6 ${
+                className={`text-sm mb-4 sm:mb-6 ${
                   plan.highlighted
                     ? 'text-white/80'
                     : 'text-[var(--muted-foreground)]'
@@ -82,13 +82,13 @@ export function Pricing() {
                 {plan.description}
               </p>
 
-              <div className="mb-8">
-                <span className="text-5xl font-extrabold tracking-tight">
+              <div className="mb-6 sm:mb-8">
+                <span className="text-4xl sm:text-5xl font-extrabold tracking-tight">
                   {plan.price}
                 </span>
                 {plan.period && (
                   <span
-                    className={`text-lg ${
+                    className={`text-base sm:text-lg ${
                       plan.highlighted
                         ? 'text-white/70'
                         : 'text-[var(--muted-foreground)]'
@@ -99,7 +99,7 @@ export function Pricing() {
                 )}
                 {plan.period && (
                   <span
-                    className={`block text-sm mt-1 ${
+                    className={`block text-xs sm:text-sm mt-1 ${
                       plan.highlighted
                         ? 'text-white/60'
                         : 'text-[var(--muted-foreground)]'
@@ -110,11 +110,11 @@ export function Pricing() {
                 )}
               </div>
 
-              <ul className="space-y-3.5 mb-8">
+              <ul className="space-y-3 mb-6 sm:mb-8">
                 {plan.features.map((feature) => (
-                  <li key={feature} className="flex items-center gap-3">
+                  <li key={feature} className="flex items-center gap-2.5 sm:gap-3">
                     <div
-                      className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 ${
+                      className={`w-4.5 h-4.5 sm:w-5 sm:h-5 rounded-full flex items-center justify-center flex-shrink-0 ${
                         plan.highlighted
                           ? 'bg-white/20'
                           : 'bg-emerald-100 text-emerald-600'
