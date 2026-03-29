@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { UserPlus } from 'lucide-react';
+import { UserPlus, Sparkles, Check } from 'lucide-react';
 
 export default function SignupPage() {
   const router = useRouter();
@@ -64,20 +64,21 @@ export default function SignupPage() {
 
   if (success) {
     return (
-      <div className="min-h-screen flex items-center justify-center px-4 bg-[var(--background)]">
-        <div className="w-full max-w-md text-center space-y-4">
-          <div className="w-16 h-16 mx-auto bg-green-100 rounded-full flex items-center justify-center">
-            <svg className="w-8 h-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-            </svg>
+      <div className="min-h-screen flex items-center justify-center px-4 bg-[var(--background)] bg-grid">
+        <div className="w-full max-w-md text-center space-y-6 animate-fade-in">
+          <div className="w-20 h-20 mx-auto bg-emerald-100 rounded-2xl flex items-center justify-center">
+            <Check className="w-10 h-10 text-emerald-600" />
           </div>
-          <h1 className="text-2xl font-bold">Vérifiez votre email</h1>
-          <p className="text-[var(--muted-foreground)]">
-            Un lien de confirmation a été envoyé à <strong>{email}</strong>.
+          <h1 className="text-2xl font-extrabold">Vérifiez votre email</h1>
+          <p className="text-[var(--muted-foreground)] leading-relaxed">
+            Un lien de confirmation a été envoyé à{' '}
+            <strong className="text-[var(--foreground)]">{email}</strong>.
             Cliquez dessus pour activer votre compte.
           </p>
           <Link href="/login">
-            <Button variant="outline">Retour à la connexion</Button>
+            <Button variant="outline" size="lg">
+              Retour à la connexion
+            </Button>
           </Link>
         </div>
       </div>
@@ -85,13 +86,19 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 bg-[var(--background)]">
-      <div className="w-full max-w-md space-y-8">
+    <div className="min-h-screen flex items-center justify-center px-4 bg-[var(--background)] bg-grid">
+      <div className="w-full max-w-md space-y-8 animate-fade-in">
         <div className="text-center">
-          <Link href="/" className="text-2xl font-bold text-[var(--primary)]">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 text-2xl font-extrabold gradient-text"
+          >
+            <Sparkles className="w-6 h-6 text-[var(--primary)]" />
             Happlier
           </Link>
-          <h1 className="mt-6 text-3xl font-bold">Créer un compte</h1>
+          <h1 className="mt-8 text-3xl font-extrabold tracking-tight">
+            Créer un compte
+          </h1>
           <p className="mt-2 text-[var(--muted-foreground)]">
             Commencez à créer vos applications en quelques minutes
           </p>
@@ -130,7 +137,9 @@ export default function SignupPage() {
           />
 
           {error && (
-            <p className="text-sm text-[var(--destructive)]">{error}</p>
+            <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-sm text-[var(--destructive)] font-medium">
+              {error}
+            </div>
           )}
 
           <Button type="submit" className="w-full" loading={loading}>
@@ -144,7 +153,7 @@ export default function SignupPage() {
             <div className="w-full border-t border-[var(--border)]" />
           </div>
           <div className="relative flex justify-center text-sm">
-            <span className="px-2 bg-[var(--background)] text-[var(--muted-foreground)]">
+            <span className="px-4 bg-[var(--background)] text-[var(--muted-foreground)]">
               Ou continuer avec
             </span>
           </div>
@@ -161,7 +170,10 @@ export default function SignupPage() {
 
         <p className="text-center text-sm text-[var(--muted-foreground)]">
           Déjà un compte ?{' '}
-          <Link href="/login" className="text-[var(--primary)] hover:underline">
+          <Link
+            href="/login"
+            className="text-[var(--primary)] hover:underline font-semibold"
+          >
             Se connecter
           </Link>
         </p>

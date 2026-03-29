@@ -1,4 +1,4 @@
-import { MessageSquare, Palette, Globe } from 'lucide-react';
+import { MessageSquare, Palette, Globe, ArrowRight } from 'lucide-react';
 
 const steps = [
   {
@@ -6,42 +6,78 @@ const steps = [
     title: 'Décrivez',
     description:
       'Expliquez en quelques phrases ce que vous souhaitez : un site vitrine, un portfolio, une page événement...',
+    color: 'from-indigo-500 to-indigo-600',
+    bgColor: 'bg-indigo-50',
+    iconColor: 'text-indigo-600',
   },
   {
     icon: Palette,
     title: 'Personnalisez',
     description:
       'Choisissez vos couleurs, uploadez votre logo et sélectionnez une catégorie pour guider la génération.',
+    color: 'from-purple-500 to-purple-600',
+    bgColor: 'bg-purple-50',
+    iconColor: 'text-purple-600',
   },
   {
     icon: Globe,
     title: 'Publiez',
     description:
       'Votre app est générée en quelques secondes et accessible en ligne sur happlier.com/votre-app.',
+    color: 'from-emerald-500 to-emerald-600',
+    bgColor: 'bg-emerald-50',
+    iconColor: 'text-emerald-600',
   },
 ];
 
 export function HowItWorks() {
   return (
-    <section id="how-it-works" className="py-20 px-4 bg-[var(--muted)]">
+    <section id="how-it-works" className="py-24 px-4 bg-[var(--muted)]/50">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl sm:text-4xl font-bold text-center mb-4">
-          Comment ça marche
-        </h2>
-        <p className="text-center text-[var(--muted-foreground)] mb-16 max-w-2xl mx-auto">
-          Trois étapes simples pour passer de l&apos;idée à une app en ligne
-        </p>
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="text-center mb-16">
+          <span className="inline-block text-sm font-semibold text-[var(--primary)] mb-3 tracking-wide uppercase">
+            Simple et rapide
+          </span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight mb-4">
+            Comment ça marche
+          </h2>
+          <p className="text-[var(--muted-foreground)] max-w-2xl mx-auto text-lg">
+            Trois étapes simples pour passer de l&apos;idée à une app en ligne
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-8 relative">
+          {/* Connector line (desktop only) */}
+          <div className="hidden md:block absolute top-16 left-[20%] right-[20%] h-0.5 bg-gradient-to-r from-indigo-200 via-purple-200 to-emerald-200" />
+
           {steps.map((step, index) => (
-            <div key={step.title} className="text-center">
-              <div className="w-16 h-16 mx-auto mb-6 bg-[var(--primary)] rounded-2xl flex items-center justify-center text-[var(--primary-foreground)]">
-                <step.icon className="w-8 h-8" />
+            <div
+              key={step.title}
+              className="relative text-center group"
+            >
+              {/* Step number + icon */}
+              <div className="relative inline-flex mb-6">
+                <div
+                  className={`w-20 h-20 ${step.bgColor} rounded-2xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3`}
+                >
+                  <step.icon className={`w-9 h-9 ${step.iconColor}`} />
+                </div>
+                <div className="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-[var(--foreground)] text-[var(--background)] text-xs font-bold flex items-center justify-center shadow-lg">
+                  {index + 1}
+                </div>
               </div>
-              <div className="text-sm font-medium text-[var(--primary)] mb-2">
-                Étape {index + 1}
-              </div>
-              <h3 className="text-xl font-semibold mb-3">{step.title}</h3>
-              <p className="text-[var(--muted-foreground)]">{step.description}</p>
+
+              <h3 className="text-xl font-bold mb-3">{step.title}</h3>
+              <p className="text-[var(--muted-foreground)] leading-relaxed">
+                {step.description}
+              </p>
+
+              {/* Arrow between steps (mobile) */}
+              {index < steps.length - 1 && (
+                <div className="md:hidden flex justify-center my-6">
+                  <ArrowRight className="w-5 h-5 text-[var(--muted-foreground)] rotate-90" />
+                </div>
+              )}
             </div>
           ))}
         </div>
