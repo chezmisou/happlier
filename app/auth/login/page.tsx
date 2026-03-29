@@ -23,27 +23,27 @@ function LoginForm() {
     setLoading(true);
 
     const supabase = createClient();
-    const { error: authError } = await supabase.auth.signInWithPassword({
+    const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
 
-    if (authError) {
+    if (error) {
       setError('Email ou mot de passe incorrect');
       setLoading(false);
-      return;
+    } else {
+      router.push(redirect);
+      router.refresh();
     }
-
-    router.push(redirect);
-    router.refresh();
   };
 
   const handleGoogleLogin = async () => {
     const supabase = createClient();
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || window.location.origin;
     const { error: oauthError } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/api/auth/callback?redirect=${redirect}`,
+        redirectTo: `${siteUrl}/auth/callback`,
       },
     });
     if (oauthError) {
@@ -57,7 +57,7 @@ function LoginForm() {
         Connexion
       </h1>
       <p className="text-gray-500 text-center mb-8">
-        Connectez-vous pour acc&eacute;der &agrave; vos applications
+        Connectez-vous pour accéder à vos applications
       </p>
 
       <form onSubmit={handleLogin} className="space-y-4">
@@ -115,13 +115,13 @@ function LoginForm() {
       </Button>
 
       <div className="text-center text-sm mt-6 space-y-2">
-        <Link href="/reset-password" className="text-violet-600 hover:underline block font-medium">
-          Mot de passe oubli&eacute; ?
+        <Link href="/auth/reset-password" className="text-violet-600 hover:underline block font-medium">
+          Mot de passe oublié ?
         </Link>
         <p className="text-gray-500">
           Pas encore de compte ?{' '}
-          <Link href="/signup" className="text-violet-600 hover:underline font-semibold">
-            Cr&eacute;er un compte
+          <Link href="/auth/signup" className="text-violet-600 hover:underline font-semibold">
+            Créer un compte
           </Link>
         </p>
       </div>

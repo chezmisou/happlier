@@ -19,8 +19,9 @@ export default function ResetPasswordPage() {
     setLoading(true);
 
     const supabase = createClient();
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || window.location.origin;
     const { error: resetError } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/api/auth/callback?type=recovery`,
+      redirectTo: `${siteUrl}/auth/callback?next=/dashboard/settings`,
     });
 
     if (resetError) {
@@ -40,12 +41,12 @@ export default function ResetPasswordPage() {
           <div className="w-16 h-16 mx-auto bg-blue-100 rounded-full flex items-center justify-center mb-6">
             <Mail className="w-8 h-8 text-blue-600" />
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Email envoy&eacute;</h1>
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">Email envoyé</h1>
           <p className="text-gray-500 mb-6">
-            Si un compte existe avec l&apos;adresse <strong className="text-gray-900">{email}</strong>, vous recevrez un lien de r&eacute;initialisation.
+            Si un compte existe avec l&apos;adresse <strong className="text-gray-900">{email}</strong>, vous recevrez un lien de réinitialisation.
           </p>
           <Button variant="outline" className="rounded-xl" asChild>
-            <Link href="/login">Retour &agrave; la connexion</Link>
+            <Link href="/auth/login">Retour à la connexion</Link>
           </Button>
         </div>
       </div>
@@ -59,9 +60,9 @@ export default function ResetPasswordPage() {
           <Link href="/" className="text-xl font-bold text-violet-600">
             Happlier
           </Link>
-          <h1 className="mt-6 text-2xl font-bold text-gray-900">Mot de passe oubli&eacute;</h1>
+          <h1 className="mt-6 text-2xl font-bold text-gray-900">Mot de passe oublié</h1>
           <p className="mt-2 text-gray-500">
-            Entrez votre email pour recevoir un lien de r&eacute;initialisation
+            Entrez votre email pour recevoir un lien de réinitialisation
           </p>
         </div>
 
@@ -87,8 +88,8 @@ export default function ResetPasswordPage() {
         </form>
 
         <p className="text-center text-sm text-gray-500 mt-6">
-          <Link href="/login" className="text-violet-600 hover:underline">
-            Retour &agrave; la connexion
+          <Link href="/auth/login" className="text-violet-600 hover:underline">
+            Retour à la connexion
           </Link>
         </p>
       </div>

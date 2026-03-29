@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
 import { Button } from '@/components/ui/button';
@@ -10,7 +9,6 @@ import { Separator } from '@/components/ui/separator';
 import { Check } from 'lucide-react';
 
 export default function SignupPage() {
-  const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -21,49 +19,50 @@ export default function SignupPage() {
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+    setLoading(true);
 
     if (password !== confirmPassword) {
       setError('Les mots de passe ne correspondent pas');
-      return;
-    }
-
-    if (password.length < 8) {
-      setError('Le mot de passe doit contenir au moins 8 caractères');
-      return;
-    }
-
-    setLoading(true);
-
-    const supabase = createClient();
-    const { error: authError } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/api/auth/callback`,
-      },
-    });
-
-    if (authError) {
-      setError(authError.message);
       setLoading(false);
       return;
     }
 
-    setSuccess(true);
-    setLoading(false);
+    if (password.length < 6) {
+      setError('Le mot de passe doit contenir au moins 6 caractères');
+      setLoading(false);
+      return;
+    }
+
+    const supabase = createClient();
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || window.location.origin;
+
+    const { error: signUpError } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        emailRedirectTo: `${siteUrl}/auth/callback`,
+      },
+    });
+
+    if (signUpError) {
+      setError(signUpError.message);
+      setLoading(false);
+    } else {
+      setSuccess(true);
+      setLoading(false);
+    }
   };
 
   const handleGoogleLogin = async () => {
     const supabase = createClient();
-    const { error: oauthError } = await supabase.auth.signInWithOAuth({
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || window.location.origin;
+    const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/api/auth/callback`,
+        redirectTo: `${siteUrl}/auth/callback`,
       },
     });
-    if (oauthError) {
-      setError(oauthError.message);
-    }
+    if (error) setError(error.message);
   };
 
   if (success) {
@@ -73,14 +72,14 @@ export default function SignupPage() {
           <div className="w-16 h-16 mx-auto bg-emerald-100 rounded-2xl flex items-center justify-center mb-6">
             <Check className="w-8 h-8 text-emerald-600" />
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">V&eacute;rifiez votre email</h1>
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">Vérifiez votre email</h1>
           <p className="text-gray-500 mb-6">
-            Un lien de confirmation a &eacute;t&eacute; envoy&eacute; &agrave;{' '}
+            Un lien de confirmation a été envoyé à{' '}
             <strong className="text-gray-900">{email}</strong>.
             Cliquez dessus pour activer votre compte.
           </p>
           <Button variant="outline" className="rounded-xl" asChild>
-            <Link href="/login">Retour &agrave; la connexion</Link>
+            <Link href="/auth/login">Retour à la connexion</Link>
           </Button>
         </div>
       </div>
@@ -91,10 +90,10 @@ export default function SignupPage() {
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="max-w-md w-full mx-4 bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
         <h1 className="text-2xl font-bold text-gray-900 text-center mb-2">
-          Cr&eacute;er un compte
+          Créer un compte
         </h1>
         <p className="text-gray-500 text-center mb-8">
-          Commencez &agrave; cr&eacute;er vos applications en quelques minutes
+          Commencez à créer vos applications en quelques minutes
         </p>
 
         <form onSubmit={handleSignup} className="space-y-4">
@@ -112,7 +111,7 @@ export default function SignupPage() {
             id="password"
             label="Mot de passe"
             type="password"
-            placeholder="Minimum 8 caractères"
+            placeholder="6 caractères minimum"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
@@ -136,7 +135,7 @@ export default function SignupPage() {
           )}
 
           <Button type="submit" className="bg-violet-600 hover:bg-violet-700 text-white w-full py-3 rounded-xl" loading={loading}>
-            Cr&eacute;er mon compte
+            Créer mon compte
           </Button>
         </form>
 
@@ -162,8 +161,8 @@ export default function SignupPage() {
         </Button>
 
         <p className="text-center text-sm text-gray-500 mt-6">
-          D&eacute;j&agrave; un compte ?{' '}
-          <Link href="/login" className="text-violet-600 hover:underline font-semibold">
+          Déjà un compte ?{' '}
+          <Link href="/auth/login" className="text-violet-600 hover:underline font-semibold">
             Se connecter
           </Link>
         </p>

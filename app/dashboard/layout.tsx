@@ -22,7 +22,7 @@ export default async function DashboardLayout({
     } = await supabase.auth.getUser();
 
     if (!authUser) {
-      redirect('/login');
+      redirect('/auth/login');
     }
     user = authUser;
   }
@@ -50,7 +50,7 @@ export default async function DashboardLayout({
               className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-violet-600 bg-violet-50 hover:bg-violet-100 transition-colors"
             >
               <Sparkles className="w-5 h-5" />
-              Cr&eacute;er une app
+              Créer une app
             </Link>
             {!isDemo && (
               <Link
@@ -74,11 +74,11 @@ export default async function DashboardLayout({
               </div>
               {isDemo ? (
                 <Link
-                  href="/signup"
+                  href="/auth/signup"
                   className="flex items-center gap-3 w-full px-3 py-2.5 rounded-xl text-sm font-medium text-violet-600 hover:bg-violet-50 transition-colors"
                 >
                   <Sparkles className="w-5 h-5" />
-                  Cr&eacute;er un compte
+                  Créer un compte
                 </Link>
               ) : (
                 <form action="/api/auth/signout" method="POST">
@@ -87,7 +87,7 @@ export default async function DashboardLayout({
                     className="flex items-center gap-3 w-full px-3 py-2.5 rounded-xl text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-red-600 transition-colors cursor-pointer"
                   >
                     <LogOut className="w-5 h-5" />
-                    D&eacute;connexion
+                    Déconnexion
                   </button>
                 </form>
               )}
@@ -110,7 +110,7 @@ export default async function DashboardLayout({
               className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium text-white bg-violet-600 hover:bg-violet-700"
             >
               <Sparkles className="w-4 h-4" />
-              Cr&eacute;er
+              Créer
             </Link>
             {!isDemo && (
               <Link
@@ -123,7 +123,7 @@ export default async function DashboardLayout({
             )}
             {isDemo ? (
               <Link
-                href="/signup"
+                href="/auth/signup"
                 className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium text-violet-600 bg-violet-50 hover:bg-violet-100"
               >
                 S&apos;inscrire
