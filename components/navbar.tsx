@@ -31,10 +31,10 @@ export function Navbar() {
         </div>
         <div className="hidden lg:flex items-center gap-3">
           <Button variant="ghost" className="text-gray-300 hover:text-white hover:bg-white/10" asChild>
-            <Link href="/login">Connexion</Link>
+            <Link href="/auth/login">Connexion</Link>
           </Button>
           <Button className="bg-violet-600 hover:bg-violet-700 text-white" asChild>
-            <Link href="/signup">Commencer</Link>
+            <Link href="/auth/signup">Commencer</Link>
           </Button>
         </div>
         {/* Mobile */}
@@ -52,9 +52,9 @@ export function Navbar() {
                 </Link>
               ))}
               <Separator className="bg-gray-800 my-2" />
-              <Link href="/login" onClick={() => setOpen(false)} className="text-lg text-gray-300">Connexion</Link>
+              <Link href="/auth/login" onClick={() => setOpen(false)} className="text-lg text-gray-300">Connexion</Link>
               <Button className="bg-violet-600 hover:bg-violet-700 text-white w-full" asChild>
-                <Link href="/signup" onClick={() => setOpen(false)}>Commencer</Link>
+                <Link href="/auth/signup" onClick={() => setOpen(false)}>Commencer</Link>
               </Button>
             </div>
           </SheetContent>

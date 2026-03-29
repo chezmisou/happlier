@@ -5,5 +5,5 @@ import { getBaseUrl } from '@/lib/utils/get-base-url';
 export async function POST() {
   const supabase = await createClient();
   await supabase.auth.signOut();
-  return NextResponse.redirect(new URL('/login', getBaseUrl()));
+  return NextResponse.redirect(new URL('/auth/login', getBaseUrl()));
 }
