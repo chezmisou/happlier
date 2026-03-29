@@ -108,11 +108,12 @@ export default function AppDataPage() {
         <div className="flex flex-wrap gap-2 mb-6">
           <button
             onClick={() => setSelectedCollection(null)}
-            className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
+            className="px-3 py-1.5 rounded-lg text-sm font-medium transition-colors cursor-pointer"
+            style={
               !selectedCollection
-                ? 'bg-violet-600 text-white'
-                : 'bg-gray-100 text-gray-500 hover:bg-violet-50'
-            }`}
+                ? { background: '#7c3aed', color: '#ffffff' }
+                : { background: '#f3f4f6', color: '#6b7280' }
+            }
           >
             Toutes
           </button>
@@ -120,11 +121,12 @@ export default function AppDataPage() {
             <button
               key={col}
               onClick={() => setSelectedCollection(col)}
-              className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
+              className="px-3 py-1.5 rounded-lg text-sm font-medium transition-colors cursor-pointer"
+              style={
                 selectedCollection === col
-                  ? 'bg-violet-600 text-white'
-                  : 'bg-gray-100 text-gray-500 hover:bg-violet-50'
-              }`}
+                  ? { background: '#7c3aed', color: '#ffffff' }
+                  : { background: '#f3f4f6', color: '#6b7280' }
+              }
             >
               {col}
             </button>
