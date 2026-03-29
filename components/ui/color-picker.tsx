@@ -43,12 +43,13 @@ export function ColorPicker({
               key={color}
               type="button"
               onClick={() => onChange(color)}
-              className={`w-7 h-7 rounded-lg transition-all duration-150 border-2 hover:scale-110 active:scale-95 ${
-                value === color
-                  ? 'border-violet-600 ring-2 ring-violet-600/30 scale-110'
-                  : 'border-transparent hover:border-gray-200'
-              }`}
-              style={{ backgroundColor: color }}
+              className="w-7 h-7 rounded-lg transition-all duration-150 hover:scale-110 active:scale-95"
+              style={{
+                backgroundColor: color,
+                border: value === color ? '2px solid #7c3aed' : '2px solid transparent',
+                boxShadow: value === color ? '0 0 0 2px rgba(124,58,237,0.3)' : 'none',
+                transform: value === color ? 'scale(1.1)' : undefined,
+              }}
               aria-label={`Couleur ${color}`}
             />
           ))}

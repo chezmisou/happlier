@@ -1,5 +1,3 @@
-import { Navbar } from '@/components/navbar';
-import { Footer } from '@/components/footer';
 import {
   Accordion,
   AccordionContent,
@@ -52,35 +50,29 @@ const faqs = [
 
 export default function FAQPage() {
   return (
-    <>
-      <Navbar />
-      <main className="pt-16">
-        <section className="py-20 lg:py-28 bg-white">
-          <div className="max-w-3xl mx-auto px-6">
-            <div className="text-center mb-16">
-              <p className="text-sm font-medium tracking-wider uppercase text-violet-600 mb-3">
-                FAQ
-              </p>
-              <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-                Questions fr&eacute;quentes
-              </h1>
-              <p className="text-gray-500">
-                Tout ce que vous devez savoir sur Happlier
-              </p>
-            </div>
+    <section className="py-20 lg:py-28 bg-white">
+      <div className="max-w-3xl mx-auto px-6">
+        <div className="text-center mb-16">
+          <p className="text-sm font-medium tracking-wider uppercase text-violet-600 mb-3">
+            FAQ
+          </p>
+          <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+            Questions fr&eacute;quentes
+          </h1>
+          <p className="text-gray-500">
+            Tout ce que vous devez savoir sur Happlier
+          </p>
+        </div>
 
-            <Accordion type="single" collapsible className="space-y-3">
-              {faqs.map((faq, index) => (
-                <AccordionItem key={index} value={`item-${index}`}>
-                  <AccordionTrigger>{faq.question}</AccordionTrigger>
-                  <AccordionContent>{faq.answer}</AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </div>
-        </section>
-      </main>
-      <Footer />
-    </>
+        <Accordion type="single" collapsible className="space-y-3">
+          {faqs.map((faq, index) => (
+            <AccordionItem key={index} value={`item-${index}`}>
+              <AccordionTrigger>{faq.question}</AccordionTrigger>
+              <AccordionContent>{faq.answer}</AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+      </div>
+    </section>
   );
 }

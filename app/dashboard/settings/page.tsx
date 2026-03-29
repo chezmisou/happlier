@@ -117,11 +117,12 @@ export default function SettingsPage() {
 
               {message && (
                 <div
-                  className={`flex items-center gap-2 p-3 rounded-xl text-sm font-medium ${
+                  className="flex items-center gap-2 p-3 rounded-xl text-sm font-medium"
+                  style={
                     message.includes('Erreur')
-                      ? 'bg-red-50 text-red-600'
-                      : 'bg-emerald-50 text-emerald-700'
-                  }`}
+                      ? { background: '#fef2f2', color: '#dc2626' }
+                      : { background: '#ecfdf5', color: '#047857' }
+                  }
                 >
                   {!message.includes('Erreur') && <Check className="w-4 h-4" />}
                   {message}

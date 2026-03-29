@@ -23,12 +23,6 @@ export function AppCard({ app }: AppCardProps) {
     expired: 'Expirée',
   };
 
-  const statusColor: Record<string, string> = {
-    active: 'bg-emerald-100 text-emerald-700',
-    trial: 'bg-amber-100 text-amber-700',
-    expired: 'bg-red-100 text-red-700',
-  };
-
   const days = daysRemaining(app.expires_at);
 
   const handleDelete = async () => {
@@ -68,7 +62,16 @@ export function AppCard({ app }: AppCardProps) {
               <ExternalLink className="w-3.5 h-3.5" />
             </Link>
           </div>
-          <span className={`text-xs font-medium px-2.5 py-1 rounded-full ${statusColor[app.status]}`}>
+          <span
+            className="text-xs font-medium px-2.5 py-1 rounded-full"
+            style={
+              app.status === 'active'
+                ? { background: '#d1fae5', color: '#047857' }
+                : app.status === 'trial'
+                  ? { background: '#fef3c7', color: '#b45309' }
+                  : { background: '#fee2e2', color: '#b91c1c' }
+            }
+          >
             {statusLabel[app.status]}
           </span>
         </div>
@@ -95,7 +98,10 @@ export function AppCard({ app }: AppCardProps) {
             Créée le {formatDate(app.created_at)}
           </span>
           {app.status === 'trial' && days !== null && (
-            <span className={`font-semibold ${days <= 1 ? 'text-red-600' : 'text-amber-600'}`}>
+            <span
+              className="font-semibold"
+              style={{ color: days <= 1 ? '#dc2626' : '#d97706' }}
+            >
               {days}j restant{days !== 1 ? 's' : ''}
             </span>
           )}

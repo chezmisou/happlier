@@ -9,16 +9,42 @@ const footerLinks = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-gray-200 bg-white">
-      <div className="max-w-6xl mx-auto px-6 py-10 flex flex-col items-center gap-4">
-        <div className="flex flex-wrap justify-center gap-6">
+    <footer
+      style={{
+        borderTop: '1px solid #e5e7eb',
+        background: '#ffffff',
+        padding: '40px 24px',
+      }}
+    >
+      <div
+        style={{
+          maxWidth: '960px',
+          margin: '0 auto',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '16px',
+        }}
+      >
+        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '24px' }}>
           {footerLinks.map((l) => (
-            <Link key={l.href} href={l.href} className="text-sm text-gray-500 hover:text-gray-900 transition">
+            <Link
+              key={l.href}
+              href={l.href}
+              style={{
+                fontSize: '14px',
+                color: '#6b7280',
+                textDecoration: 'none',
+                transition: 'color 0.2s',
+              }}
+            >
               {l.label}
             </Link>
           ))}
         </div>
-        <p className="text-xs text-gray-400">&copy; 2026 Happlier &mdash; Cr&eacute;ez votre app en quelques minutes</p>
+        <p style={{ fontSize: '13px', color: '#9ca3af', margin: 0 }}>
+          © 2026 Happlier — Créez votre app en quelques minutes
+        </p>
       </div>
     </footer>
   );

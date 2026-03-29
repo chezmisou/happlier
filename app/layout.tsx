@@ -4,7 +4,7 @@ import './globals.css';
 export const metadata: Metadata = {
   title: 'Happlier — Créez votre app web en quelques minutes grâce à l\'IA',
   description:
-    'Happlier permet à n\'importe qui de créer une application web statique en quelques minutes grâce à l\'IA. Décrivez, personnalisez, publiez.',
+    'Happlier permet à n\'importe qui de créer une application web en quelques minutes grâce à l\'IA. Décrivez, personnalisez, publiez.',
   keywords: [
     'création app',
     'IA',
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     title: 'Happlier — Créez votre app web en quelques minutes',
     description:
       'Décrivez votre idée, personnalisez l\'apparence, et publiez votre app web en quelques minutes.',
-    url: 'https://happlier.com',
+    url: 'https://happlier.vercel.app',
     siteName: 'Happlier',
     type: 'website',
   },
