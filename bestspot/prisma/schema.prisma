@@ -1,0 +1,49 @@
+// Prisma schema for bestspot.
+// Local dev uses SQLite. To migrate to Postgres (Vercel/Neon/Supabase),
+// change `provider = "postgresql"` and re-run `prisma migrate deploy`.
+// All field types here are Postgres-compatible.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Place {
+  id               String   @id @default(cuid())
+  userId           String   @default("default-user")
+
+  // Canonical data (Google Places)
+  googlePlaceId    String?  @unique
+  name             String
+  formattedAddress String?
+  latitude         Float
+  longitude        Float
+  rating           Float?
+  userRatingsTotal Int?
+  googleMapsUrl    String?
+  websiteUrl       String?
+  photoUrl         String?
+
+  // Categorization
+  placeType        String   // restaurant | bar | cafe | activity | hotel | shop | other
+
+  // Source
+  sourceType       String   // tiktok | instagram | google_maps | manual
+  sourceUrl        String
+
+  // Extracted insights
+  reviewExcerpt    String?
+  sentiment        String?  // positive | neutral | negative
+
+  notes            String?
+
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@index([userId])
+  @@index([placeType])
+}
