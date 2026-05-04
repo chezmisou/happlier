@@ -37,7 +37,9 @@ async function fetchOgMeta(url: string): Promise<string | null> {
     const html = await res.text();
     const desc = html.match(/<meta\s+property="og:description"\s+content="([^"]+)"/i);
     const title = html.match(/<meta\s+property="og:title"\s+content="([^"]+)"/i);
-    const parts = [title?.[1], desc?.[1]].filter(Boolean).map(decodeHtml);
+    const parts = [title?.[1], desc?.[1]]
+      .filter((s): s is string => Boolean(s))
+      .map(decodeHtml);
     return parts.length ? parts.join('\n\n') : null;
   } catch {
     return null;

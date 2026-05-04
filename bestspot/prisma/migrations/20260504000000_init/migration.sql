@@ -1,13 +1,13 @@
 -- CreateTable
 CREATE TABLE "Place" (
-    "id" TEXT NOT NULL PRIMARY KEY,
+    "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL DEFAULT 'default-user',
     "googlePlaceId" TEXT,
     "name" TEXT NOT NULL,
     "formattedAddress" TEXT,
-    "latitude" REAL NOT NULL,
-    "longitude" REAL NOT NULL,
-    "rating" REAL,
+    "latitude" DOUBLE PRECISION NOT NULL,
+    "longitude" DOUBLE PRECISION NOT NULL,
+    "rating" DOUBLE PRECISION,
     "userRatingsTotal" INTEGER,
     "googleMapsUrl" TEXT,
     "websiteUrl" TEXT,
@@ -18,8 +18,10 @@ CREATE TABLE "Place" (
     "reviewExcerpt" TEXT,
     "sentiment" TEXT,
     "notes" TEXT,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" DATETIME NOT NULL
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Place_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
