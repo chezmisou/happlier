@@ -15,6 +15,7 @@ import { PLACE_TYPES, SOURCE_TYPES, type PlaceType, type SourceType } from '@/li
 import { PLACE_TYPE_COLORS, PLACE_TYPE_LABELS, SOURCE_LABELS } from '@/lib/place-display';
 import type { Place } from '@/types/place';
 import { cn } from '@/lib/utils';
+import { withBasePath } from '@/lib/base-path';
 import { toast } from 'sonner';
 
 type SortKey = 'createdAt' | 'name' | 'rating';
@@ -126,7 +127,7 @@ export function Sidebar({
                     onSelect={() => onSelect(p.id)}
                     onDelete={async () => {
                       if (!confirm(`Delete "${p.name}"?`)) return;
-                      const res = await fetch(`/api/places/${p.id}`, { method: 'DELETE' });
+                      const res = await fetch(withBasePath(`/api/places/${p.id}`), { method: 'DELETE' });
                       if (res.ok) {
                         toast.success(`Deleted ${p.name}`);
                         onDelete(p.id);
