@@ -9,6 +9,7 @@ import { PlaceDetail } from '@/components/place-detail';
 import { ThemeToggle } from '@/components/theme-toggle';
 import type { Place } from '@/types/place';
 import type { PlaceType, SourceType } from '@/lib/types';
+import { withBasePath } from '@/lib/base-path';
 
 const MapView = dynamic(() => import('@/components/map-view').then((m) => m.MapView), {
   ssr: false,
@@ -33,7 +34,7 @@ export default function BestspotPage() {
   }, []);
 
   async function refresh() {
-    const res = await fetch('/api/places');
+    const res = await fetch(withBasePath('/api/places'));
     if (!res.ok) return;
     const data = await res.json();
     setPlaces(data.places);

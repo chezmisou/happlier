@@ -19,6 +19,7 @@ import { PLACE_TYPES, SOURCE_TYPES, type PlaceType, type SourceType } from '@/li
 import { PLACE_TYPE_LABELS, SOURCE_LABELS } from '@/lib/place-display';
 import { toast } from 'sonner';
 import type { Place } from '@/types/place';
+import { withBasePath } from '@/lib/base-path';
 
 export type ManualPrefill = {
   name?: string;
@@ -59,7 +60,7 @@ export function ManualPlaceDialog({ open, onOpenChange, prefill, onCreated }: Pr
     }
     setSubmitting(true);
     try {
-      const res = await fetch('/api/places/manual', {
+      const res = await fetch(withBasePath('/api/places/manual'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

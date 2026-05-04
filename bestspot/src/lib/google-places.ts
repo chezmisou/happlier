@@ -39,8 +39,9 @@ function getKey(): string {
 function photoUrlFromName(photoName: string | undefined): string | null {
   if (!photoName) return null;
   // Photo media endpoint requires the same API key. We expose a server-relative
-  // proxy URL so the key is not leaked to the client.
-  return `/api/photo?name=${encodeURIComponent(photoName)}`;
+  // proxy URL so the key is not leaked to the client. Prefix with basePath so
+  // the URL works whether served standalone or behind a path-preserving rewrite.
+  return `/bestspot/api/photo?name=${encodeURIComponent(photoName)}`;
 }
 
 function normalizeDetails(p: any): PlaceDetails {

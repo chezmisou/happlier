@@ -6,6 +6,7 @@ import { Star, ExternalLink, X, Trash2, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import type { Place } from '@/types/place';
 import { PLACE_TYPE_COLORS, PLACE_TYPE_LABELS, SOURCE_LABELS } from '@/lib/place-display';
+import { withBasePath } from '@/lib/base-path';
 import { toast } from 'sonner';
 
 type Props = {
@@ -112,7 +113,7 @@ export function PlaceDetail({ place, onClose, onDelete }: Props) {
             className="ml-auto text-destructive hover:text-destructive"
             onClick={async () => {
               if (!confirm(`Delete "${place.name}"?`)) return;
-              const res = await fetch(`/api/places/${place.id}`, { method: 'DELETE' });
+              const res = await fetch(withBasePath(`/api/places/${place.id}`), { method: 'DELETE' });
               if (res.ok) {
                 toast.success(`Deleted ${place.name}`);
                 onDelete(place.id);

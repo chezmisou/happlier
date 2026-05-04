@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
 import type { Place } from '@/types/place';
 import { ManualPlaceDialog, type ManualPrefill } from './manual-place-dialog';
+import { withBasePath } from '@/lib/base-path';
 
 type Props = {
   onCreated: (place: Place) => void;
@@ -22,7 +23,7 @@ export function AddLinkForm({ onCreated }: Props) {
     if (!url.trim()) return;
     setSubmitting(true);
     try {
-      const res = await fetch('/api/places', {
+      const res = await fetch(withBasePath('/api/places'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ url }),

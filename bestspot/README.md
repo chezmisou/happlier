@@ -3,7 +3,9 @@
 Your geolocated wishlist. Paste a TikTok, Instagram or Google Maps link and the
 place lands on a map with its address, Google rating and a short review excerpt.
 
-Lives at `/bestspot` inside this Next.js app.
+Lives at `/bestspot` — served by its own Vercel project (Root Directory =
+`bestspot/`) and exposed under the main happlier domain via a path-preserving
+rewrite in the root `next.config.js`.
 
 ## Stack
 
@@ -129,9 +131,14 @@ Failure modes you should also try:
 
 ## Deploying to Vercel
 
-1. Push this folder to its own Vercel project (set the **Root Directory** to
-   `bestspot/` in *Project Settings → General*).
-2. Switch the database. In `prisma/schema.prisma` change:
+bestspot is meant to live behind the main happlier domain. There are two
+projects on Vercel:
+
+**1. The bestspot project** (this folder)
+
+1. Import the `chezmisou/happlier` repo as a **new** Vercel project.
+2. In *Project Settings → General*, set **Root Directory** to `bestspot`.
+3. Switch the database. In `prisma/schema.prisma` change:
    ```prisma
    datasource db {
      provider = "postgresql"
@@ -139,10 +146,26 @@ Failure modes you should also try:
    }
    ```
    Provision **Vercel Postgres** (or Neon / Supabase) and set
-   `DATABASE_URL` in Vercel's env vars.
-3. Add the same env vars from `.env.example` to the Vercel project.
-4. Run `npx prisma migrate deploy` once (Vercel will run `prisma generate`
-   automatically thanks to `postinstall`).
+   `DATABASE_URL` in the project's env vars.
+4. Add the rest of the env vars from `.env.example`.
+5. Deploy. Vercel will run `prisma generate` (via `postinstall`) and `next build`.
+6. Verify it works at `https://<bestspot-project>.vercel.app/bestspot`. The
+   `basePath: '/bestspot'` in `next.config.mjs` means everything (pages, API
+   routes, `_next/*` assets) is served under that prefix — that is what makes
+   the rewrite below transparent.
+
+**2. The root happlier project** (already exists)
+
+1. Set the env var `BESTSPOT_URL` in *Settings → Environment Variables* to the
+   bestspot deployment URL (without trailing slash), e.g.
+   `https://bestspot-xxxxx.vercel.app`.
+2. Redeploy. The root `next.config.js` already contains rewrites that forward
+   `/bestspot` and `/bestspot/:path*` to that target, so the app becomes
+   reachable at `https://<happlier-domain>/bestspot`.
+
+Because the rewrite is path-preserving and bestspot uses `basePath`, no other
+configuration is needed — Maps JS, the photo proxy, and all `/_next/*` chunks
+load through the same prefix.
 
 The included `build` script runs `prisma generate` before `next build`, so the
 client is always in sync.
