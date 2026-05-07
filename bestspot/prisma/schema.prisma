@@ -1,15 +1,20 @@
 // Prisma schema for bestspot.
-// Local dev uses SQLite. To migrate to Postgres (Vercel/Neon/Supabase),
-// change `provider = "postgresql"` and re-run `prisma migrate deploy`.
-// All field types here are Postgres-compatible.
+// Uses PostgreSQL — point DATABASE_URL at Vercel Postgres / Neon / Supabase.
+// For local SQLite dev, swap `provider = "sqlite"` and use
+// DATABASE_URL="file:./dev.db".
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  // Pooled URL used at runtime (PgBouncer / Supabase pooler, port 6543).
+  url       = env("DATABASE_URL")
+  // Direct connection URL used by `prisma migrate` (port 5432). Falls back
+  // to DATABASE_URL when not set, but the migrate step will be unreliable
+  // through PgBouncer transaction mode if you do.
+  directUrl = env("DIRECT_URL")
 }
 
 model Place {
